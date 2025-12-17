@@ -4,7 +4,7 @@
  */
 
 import { t } from '../i18n.js';
-import { throttle, escapeHtml } from '../utils.js';
+import { throttle, escapeHtml, withBasePath } from '../utils.js';
 import { initIcons, refreshIcons } from '../lucide-icons.js';
 
 // 導航連結配置
@@ -22,7 +22,7 @@ function createNavbarHTML() {
     <nav class="navbar glass-nav" role="navigation" aria-label="主導航">
       <div class="navbar__container container">
         <!-- Logo -->
-        <a href="/" class="navbar__logo">
+        <a href="${escapeHtml(withBasePath('/'))}" class="navbar__logo">
           <span class="navbar__logo-icon">
             <i data-lucide="hexagon"></i>
           </span>
@@ -35,7 +35,7 @@ function createNavbarHTML() {
             .map(
               (link) => `
             <li>
-              <a href="${escapeHtml(link.href)}" class="navbar__link" data-lang="${escapeHtml(link.key)}">
+              <a href="${escapeHtml(link.href.startsWith('#') ? link.href : withBasePath(link.href))}" class="navbar__link" data-lang="${escapeHtml(link.key)}">
                 ${escapeHtml(t(link.key))}
               </a>
             </li>
@@ -88,7 +88,7 @@ function createNavbarHTML() {
             .map(
               (link) => `
             <li>
-              <a href="${escapeHtml(link.href)}" class="navbar__mobile-link" data-lang="${escapeHtml(link.key)}">
+              <a href="${escapeHtml(link.href.startsWith('#') ? link.href : withBasePath(link.href))}" class="navbar__mobile-link" data-lang="${escapeHtml(link.key)}">
                 ${escapeHtml(t(link.key))}
               </a>
             </li>

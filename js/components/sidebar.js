@@ -4,7 +4,7 @@
  */
 
 import { t } from '../i18n.js';
-import { escapeHtml } from '../utils.js';
+import { escapeHtml, getBasePath, withBasePath } from '../utils.js';
 import { initIcons, refreshIcons } from '../lucide-icons.js';
 
 // 側邊欄選單配置
@@ -64,7 +64,15 @@ const menuItems = [
 
 // 取得當前頁面路徑
 function getCurrentPath() {
-  return window.location.pathname;
+  const pathname = window.location.pathname;
+  const base = getBasePath();
+
+  // 把 /<repo>/pages/xxx.html 轉回 /pages/xxx.html，讓 active 判斷一致
+  if (base !== '/' && pathname.startsWith(base)) {
+    const rest = pathname.slice(base.length);
+    return `/${rest.replace(/^\/+/, '')}`;
+  }
+  return pathname;
 }
 
 // 建立選單項目 HTML
@@ -100,7 +108,7 @@ function createMenuItemHTML(item, currentPath) {
               (sub) => `
             <li>
               <a
-                href="${escapeHtml(sub.href)}"
+                href="${escapeHtml(withBasePath(sub.href))}"
                 class="sidebar__submenu-link ${sub.href === currentPath ? 'is-active' : ''}"
                 data-lang="${escapeHtml(sub.key)}"
                 aria-label="${escapeHtml(t(sub.key))}"
@@ -120,7 +128,7 @@ function createMenuItemHTML(item, currentPath) {
   return `
     <li class="sidebar__item">
       <a
-        href="${escapeHtml(item.href)}"
+        href="${escapeHtml(withBasePath(item.href))}"
         class="sidebar__link ${isActive ? 'is-active' : ''}"
         ${isActive ? 'aria-current="page"' : ''}
         aria-label="${escapeHtml(t(item.key))}"
@@ -156,7 +164,7 @@ function createSidebarHTML() {
     <aside id="sidebar" class="sidebar glass-sidebar" role="navigation" aria-label="${escapeHtml(t('sidebar.aria.label'))}" data-lang-aria="sidebar.aria.label">
       <!-- Logo -->
       <div class="sidebar__header">
-        <a href="/" class="sidebar__logo">
+        <a href="${escapeHtml(withBasePath('/'))}" class="sidebar__logo">
           <span class="sidebar__logo-icon">
             <i data-lucide="hexagon"></i>
           </span>
@@ -185,7 +193,7 @@ function createSidebarHTML() {
       <div class="sidebar__footer">
         <div class="sidebar__user">
           <div class="avatar">
-            <img src="/assets/images/avatar-placeholder.svg" alt="用戶頭像" />
+            <img src="${escapeHtml(withBasePath('/assets/images/avatar-placeholder.svg'))}" alt="用戶頭像" />
           </div>
           <div class="sidebar__user-info">
             <span class="sidebar__user-name">John Doe</span>

@@ -20,6 +20,14 @@
   const script = document.currentScript;
   if (!script || !script.src) return;
 
+  // === Base Path（同時支援本機 / 與 GitHub Pages /<repo>/ 子路徑）===
+  // 透過目前載入的 head-loader.js 位置推導專案根目錄：
+  // - /js/head-loader.js -> 專案根目錄為 ../
+  // - pages/*.html 也會因為 ../js/head-loader.js 解析後落在同一路徑
+  const basePathUrl = new URL('../', script.src);
+  const basePath = basePathUrl.pathname.endsWith('/') ? basePathUrl.pathname : `${basePathUrl.pathname}/`;
+  window.__NEXUS_BASE_PATH__ = basePath;
+
   const cssBaseUrl = new URL('../css/', script.src); // script 在 /js/，往上就是 /css/
 
   // Fonts（集中管理，頁面不需要各自寫）

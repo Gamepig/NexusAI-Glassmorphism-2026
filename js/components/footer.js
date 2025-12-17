@@ -4,7 +4,7 @@
  */
 
 import { t } from '../i18n.js';
-import { escapeHtml } from '../utils.js';
+import { escapeHtml, withBasePath } from '../utils.js';
 import { initIcons } from '../lucide-icons.js';
 
 // 頁腳連結配置（使用 i18n keys，避免硬編碼文字）
@@ -63,7 +63,7 @@ function createFooterHTML() {
         <div class="footer__grid">
           <!-- Brand -->
           <div class="footer__brand">
-            <a href="/" class="footer__logo">
+            <a href="${escapeHtml(withBasePath('/'))}" class="footer__logo">
               <span class="footer__logo-icon">
                 <i data-lucide="hexagon"></i>
               </span>

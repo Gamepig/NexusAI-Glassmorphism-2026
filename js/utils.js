@@ -4,6 +4,39 @@
  */
 
 // ========================================
+// Base Path（本機 / 與 GitHub Pages /<repo>/ 子路徑相容）
+// ========================================
+
+/**
+ * 取得專案 base path（必定以 / 開頭且以 / 結尾）
+ * - 本機根目錄：/
+ * - GitHub Pages：/NexusAI-Glassmorphism-2026/
+ */
+function getBasePath() {
+  const p = window.__NEXUS_BASE_PATH__;
+  if (typeof p === 'string' && p.startsWith('/')) {
+    return p.endsWith('/') ? p : `${p}/`;
+  }
+  return '/';
+}
+
+/**
+ * 把「專案根目錄路徑」轉成可在本機與 GitHub Pages 都可用的 URL
+ * - withBasePath('/pages/dashboard.html') -> '/<base>/pages/dashboard.html'
+ * - withBasePath('/') -> '/<base>/'
+ * - '#anchor' / 'https://...' 會原樣返回
+ */
+function withBasePath(path) {
+  if (!path) return path;
+  if (path.startsWith('#')) return path;
+  if (/^[a-z][a-z0-9+.-]*:/i.test(path)) return path; // e.g. https:, mailto:
+
+  const base = getBasePath();
+  if (path.startsWith('/')) return base + path.slice(1);
+  return base + path;
+}
+
+// ========================================
 // DOM 工具
 // ========================================
 
@@ -326,6 +359,8 @@ export {
   $,
   $$,
   createElement,
+  getBasePath,
+  withBasePath,
   escapeHtml,
   initIcons,
   formatNumber,

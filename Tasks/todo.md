@@ -856,4 +856,46 @@
 - **補充**：
   - 我額外把 `.code-summary/` 加入 `.gitignore`，避免自動產生摘要檔被推上 GitHub
 
+---
+
+## 修正 GitHub Pages 導航 404（相對位置/base path）— 計畫（待你確認）
+
+## 問題摘要（已定位）
+- GitHub Pages 站點會在 `/<repo>/` 子路徑下提供靜態檔案，因此像 `href="/pages/dashboard.html"`、`href="/"`、`src="/assets/..."` 這類「站台根目錄絕對路徑」在 Pages 會指到 `https://<user>.github.io/pages/...`，進而 **404**。
+- 目前專案中會造成問題的絕對路徑主要出現在：
+  - `index.html`：`/pages/dashboard.html`
+  - `js/components/navbar.js`、`js/components/footer.js`、`js/components/sidebar.js`：`href="/"`、`/pages/...`、`/assets/...`
+
+## 修正策略（最小改動 + 共用模組原則）
+- 只新增「一個共用的 base path 計算」：
+  - 在 `js/head-loader.js`（每頁都會載入）計算專案 base path，寫到 `window.__NEXUS_BASE_PATH__`。
+  - 在 `js/utils.js` 新增 `getBasePath()` + `withBasePath()`（或等效命名），讓所有元件用同一套規則組 URL。
+- 對靜態 HTML：把少數 `href="/pages/...` 改成相對路徑（`pages/...`），確保本機與 Pages 都一致。
+- 對共用元件：用 `withBasePath()` 統一產生 `href/src`，並讓 sidebar 的 active 判斷對齊 base path 後的實際 pathname。
+
+## Todo（你確認後我才開始動手）
+- [x] 1) `js/head-loader.js`：新增 `window.__NEXUS_BASE_PATH__`（由 `document.currentScript.src` 推導）
+- [x] 2) `js/utils.js`：新增 `getBasePath()` / `withBasePath()`（含 fallback）
+- [x] 3) `js/components/sidebar.js`：將所有 `/pages/...` 與 `/assets/...` 改為 `withBasePath(...)`，並修正 active 判斷（把 `location.pathname` 去掉 base 後再比對）
+- [x] 4) `js/components/navbar.js`：`href="/"` 改為 `withBasePath('/')`（只影響 home/logo）
+- [x] 5) `js/components/footer.js`：`href="/"` 改為 `withBasePath('/')`
+- [x] 6) `index.html`：把兩處 `href="/pages/dashboard.html"` 改成 `href="pages/dashboard.html"`
+- [x] 7) 驗收（本機 + 模擬 Pages 子路徑）
+  - [x] 本機：`http://localhost:8080/`、`/pages/dashboard.html`、`/pages/settings-general.html` 皆回 200
+  - [x] 模擬子路徑：父層 server `http://127.0.0.1:8127/nexus-Glassmorphism/`，並確認：
+    - [x] `/nexus-Glassmorphism/`、`/nexus-Glassmorphism/pages/dashboard.html`、`/nexus-Glassmorphism/assets/images/avatar-placeholder.svg` 皆回 200
+
+## Review（完成後補）
+- **根因**：使用站台根目錄絕對路徑（`/...`）導致 GitHub Pages 子路徑下解析錯誤
+- **修正方式**：集中計算 base path，並用共用 helper 組出正確 URL（同時兼容本機與 Pages）
+
+## Review（已完成）
+- **根因**：
+  - 多處使用站台根目錄絕對路徑（例如 `/pages/...`、`/assets/...`、`/`），在 GitHub Pages 的 `/<repo>/` 子路徑下會指到錯的 URL，造成 404。
+- **修正方式（最小改動 + 共用模組原則）**：
+  - `js/head-loader.js`：新增 `window.__NEXUS_BASE_PATH__`，由 `head-loader.js` 的實際載入位置推導專案根目錄。
+  - `js/utils.js`：新增 `getBasePath()` / `withBasePath()`，集中產生可同時支援本機與 Pages 的內部 URL。
+  - `navbar/footer/sidebar`：把 home/logo 與 sidebar 的 `/pages/...`、`/assets/...` 全部改成走 `withBasePath()`。
+  - `index.html`：把兩個 `/pages/dashboard.html` 改成相對連結 `pages/dashboard.html`。
+
 
