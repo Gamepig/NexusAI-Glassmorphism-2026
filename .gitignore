@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Node (如果使用開發伺服器)
+node_modules/
+npm-debug.log*
+
+# Build
+dist/
+build/
+
+# Cache
+.cache/
+*.cache
+
+# Logs
+logs/
+*.log
+
+# Local settings
+.claude/settings.local.json
+CLAUDE.local.md
+
+# Temporary
+*.tmp
+*.temp

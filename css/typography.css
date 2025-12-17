@@ -1,0 +1,256 @@
+/**
+ * NexusAI Glassmorphism 2026 - Typography
+ * 字體系統
+ */
+
+/* ========================================
+   字體載入
+   ======================================== */
+
+/* Inter - 西文字體 */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Noto Sans TC - 中文字體 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap');
+
+/* JetBrains Mono - 等寬字體 */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ========================================
+   基礎設定
+   ======================================== */
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--font-normal);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+}
+
+/* ========================================
+   標題系統
+   ======================================== */
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-tight);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+h1, .h1 {
+  font-size: var(--text-5xl);
+  letter-spacing: -0.02em;
+}
+
+h2, .h2 {
+  font-size: var(--text-4xl);
+  letter-spacing: -0.015em;
+}
+
+h3, .h3 {
+  font-size: var(--text-3xl);
+  letter-spacing: -0.01em;
+}
+
+h4, .h4 {
+  font-size: var(--text-2xl);
+}
+
+h5, .h5 {
+  font-size: var(--text-xl);
+}
+
+h6, .h6 {
+  font-size: var(--text-lg);
+}
+
+/* ========================================
+   段落與內文
+   ======================================== */
+
+p {
+  margin: 0 0 var(--space-4);
+  line-height: var(--leading-relaxed);
+}
+
+.lead {
+  font-size: var(--text-lg);
+  font-weight: var(--font-normal);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+.small, small {
+  font-size: var(--text-sm);
+}
+
+.tiny {
+  font-size: var(--text-xs);
+}
+
+/* ========================================
+   文字樣式
+   ======================================== */
+
+strong, b, .font-bold {
+  font-weight: var(--font-bold);
+}
+
+.font-semibold {
+  font-weight: var(--font-semibold);
+}
+
+.font-medium {
+  font-weight: var(--font-medium);
+}
+
+.font-normal {
+  font-weight: var(--font-normal);
+}
+
+.font-light {
+  font-weight: var(--font-light);
+}
+
+em, i, .italic {
+  font-style: italic;
+}
+
+/* ========================================
+   文字顏色
+   ======================================== */
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-inverse {
+  color: var(--text-inverse);
+}
+
+.text-brand {
+  color: var(--color-primary);
+}
+
+.text-success {
+  color: var(--color-success);
+}
+
+.text-warning {
+  color: var(--color-warning);
+}
+
+.text-error {
+  color: var(--color-error);
+}
+
+/* ========================================
+   連結
+   ======================================== */
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--duration-150) var(--ease-smooth);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+}
+
+/* ========================================
+   等寬字體
+   ======================================== */
+
+code, kbd, pre, samp, .font-mono {
+  font-family: var(--font-mono);
+}
+
+code {
+  font-size: 0.875em;
+  padding: var(--space-1) var(--space-2);
+  background: var(--bg-elevated);
+  border-radius: var(--radius-sm);
+}
+
+pre {
+  overflow-x: auto;
+  padding: var(--space-4);
+  background: var(--bg-elevated);
+  border-radius: var(--radius-md);
+}
+
+pre code {
+  padding: 0;
+  background: transparent;
+}
+
+/* ========================================
+   文字對齊
+   ======================================== */
+
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+
+/* ========================================
+   文字截斷
+   ======================================== */
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ========================================
+   列表
+   ======================================== */
+
+ul, ol {
+  margin: 0 0 var(--space-4);
+  padding-left: var(--space-6);
+}
+
+li {
+  margin-bottom: var(--space-2);
+}
+
+.list-none {
+  list-style: none;
+  padding-left: 0;
+}

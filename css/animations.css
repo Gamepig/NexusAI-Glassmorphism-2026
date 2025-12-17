@@ -1,0 +1,289 @@
+/**
+ * NexusAI Glassmorphism 2026 - Animations
+ * 動效系統
+ */
+
+/* ========================================
+   減少動畫偏好
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ========================================
+   進入動畫
+   ======================================== */
+
+.animate-in {
+  animation: fadeIn var(--duration-300) var(--ease-smooth) forwards;
+}
+
+.animate-in-up {
+  animation: fadeInUp var(--duration-500) var(--ease-smooth) forwards;
+}
+
+.animate-in-down {
+  animation: fadeInDown var(--duration-500) var(--ease-smooth) forwards;
+}
+
+.animate-in-left {
+  animation: fadeInLeft var(--duration-500) var(--ease-smooth) forwards;
+}
+
+.animate-in-right {
+  animation: fadeInRight var(--duration-500) var(--ease-smooth) forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn var(--duration-300) var(--ease-bounce) forwards;
+}
+
+/* ========================================
+   淡入 Keyframes
+   ======================================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ========================================
+   懸停動畫
+   ======================================== */
+
+.hover-lift {
+  transition: transform var(--duration-200) var(--ease-smooth);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+.hover-scale {
+  transition: transform var(--duration-200) var(--ease-smooth);
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+.hover-glow {
+  transition: box-shadow var(--duration-300) var(--ease-smooth);
+}
+
+.hover-glow:hover {
+  box-shadow: var(--shadow-glow-purple);
+}
+
+.hover-bounce {
+  transition: transform var(--duration-200) var(--ease-bounce);
+}
+
+.hover-bounce:hover {
+  transform: scale(1.05);
+}
+
+.hover-bounce:active {
+  transform: scale(0.98);
+}
+
+/* ========================================
+   滾動觸發動畫（需配合 JS）
+   ======================================== */
+
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity var(--duration-500) var(--ease-smooth),
+    transform var(--duration-500) var(--ease-smooth);
+}
+
+.scroll-animate.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 序列延遲 */
+.scroll-animate[data-delay="1"] { transition-delay: 100ms; }
+.scroll-animate[data-delay="2"] { transition-delay: 200ms; }
+.scroll-animate[data-delay="3"] { transition-delay: 300ms; }
+.scroll-animate[data-delay="4"] { transition-delay: 400ms; }
+.scroll-animate[data-delay="5"] { transition-delay: 500ms; }
+
+/* ========================================
+   計數器動畫（需配合 JS）
+   ======================================== */
+
+.counter {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ========================================
+   脈衝動畫
+   ======================================== */
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* ========================================
+   旋轉動畫
+   ======================================== */
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ========================================
+   彈跳動畫
+   ======================================== */
+
+.bounce {
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+/* ========================================
+   搖晃動畫
+   ======================================== */
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+/* ========================================
+   浮動動畫（Hero 背景形狀用）
+   ======================================== */
+
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.float--slow {
+  animation-duration: 8s;
+}
+
+.float--fast {
+  animation-duration: 4s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+/* ========================================
+   漸層動畫
+   ======================================== */
+
+.gradient-shift {
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ========================================
+   過渡工具類
+   ======================================== */
+
+.transition-none { transition: none; }
+.transition-all { transition: all var(--duration-300) var(--ease-smooth); }
+.transition-colors { transition: color var(--duration-200), background-color var(--duration-200), border-color var(--duration-200); }
+.transition-opacity { transition: opacity var(--duration-300) var(--ease-smooth); }
+.transition-transform { transition: transform var(--duration-300) var(--ease-smooth); }
