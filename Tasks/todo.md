@@ -898,4 +898,34 @@
   - `navbar/footer/sidebar`：把 home/logo 與 sidebar 的 `/pages/...`、`/assets/...` 全部改成走 `withBasePath()`。
   - `index.html`：把兩個 `/pages/dashboard.html` 改成相對連結 `pages/dashboard.html`。
 
+---
+
+## 預設主題改為淺色（Light First）— 計畫（待你確認）
+
+## 目標
+- 第一次進站（localStorage 沒有 `nexusai-theme`）時，**預設一定是淺色**。
+- 使用者手動切換後仍會記憶（保留現有 `localStorage` 行為）。
+- 其他邏輯維持最小改動（不重構、不影響既有按鈕事件）。
+
+## 根因（已定位）
+- `js/theme.js` 目前在沒有儲存值時，預設回傳 `system`，會跟隨作業系統深淺色，導致「預設不是固定淺色」。
+
+## Todo（你確認後我才開始動手）
+- [x] 1) `js/theme.js`：把預設值從 `THEMES.SYSTEM` 改為 `THEMES.LIGHT`
+  - [x] `getSavedTheme()`：`localStorage.getItem(THEME_KEY) || THEMES.LIGHT`
+  - [x] 保留 `THEMES.SYSTEM` 供未來需要時使用（不移除、不改 API）
+- [ ] 2) 驗收（你本機操作）
+  - [ ] 清空 `localStorage['nexusai-theme']` 後重整：應為 `data-theme="light"`
+  - [ ] 點擊切換：可切到深色，且重整後仍保留深色
+
+## Review（完成後補）
+- **變更檔案**：`js/theme.js`
+- **行為變更**：預設不再跟隨系統，改為固定淺色；使用者切換後仍記憶
+
+## Review（已完成）
+- **變更檔案**：`js/theme.js`
+- **行為變更**：
+  - 第一次進站（沒有 `nexusai-theme`）會固定套用 `light`
+  - 使用者切換後仍會用 `localStorage` 記憶並在下次載入套用
+
 

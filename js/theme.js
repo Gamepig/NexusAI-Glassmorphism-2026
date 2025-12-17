@@ -23,7 +23,8 @@ function getSystemTheme() {
 
 // 取得儲存的主題設定
 function getSavedTheme() {
-  return localStorage.getItem(THEME_KEY) || THEMES.SYSTEM;
+  // Light First：第一次進站沒有設定時，預設固定為淺色
+  return localStorage.getItem(THEME_KEY) || THEMES.LIGHT;
 }
 
 // 取得實際應用的主題
