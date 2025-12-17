@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript 功能展示 - NexusAI</title>
+  <!-- Head Loader（集中管理核心 CSS/Fonts/版本號；此頁會自動載入 js-showcase.css） -->
+  <script src="../js/head-loader.js"></script>
+
+  <!-- External libraries (CDN). Each module will gracefully fallback if missing. -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@mojs/core@1.5.0/dist/mo.umd.min.js"></script>
+</head>
+<body>
+  <!-- Skip Link (無障礙) -->
+  <a href="#main-content" class="skip-link">跳至主要內容</a>
+
+  <div class="sidebar-layout">
+    <nav id="sidebar-container" class="sidebar-layout__sidebar" aria-label="側邊導航"></nav>
+    <main id="main-content" class="sidebar-layout__main">
+      <!-- Page Header -->
+      <div class="page-header mb-6 js-showcase__header">
+        <div class="flex items-center justify-between flex-wrap gap-4">
+          <div>
+            <h1 class="h3" data-lang="jsShowcase.title">JavaScript 功能展示</h1>
+            <p class="text-secondary mt-2" data-lang="jsShowcase.subtitle">探索現代 Web 技術與 JavaScript 功能示範</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button class="btn btn--secondary btn--sm" data-lang-toggle aria-label="切換語言">
+              <span data-lang-display>中</span>
+            </button>
+            <button class="btn btn--secondary btn--sm" data-theme-toggle aria-label="切換主題">
+              <i data-lucide="moon" data-theme-icon></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <section class="js-showcase__tabs glass-card p-4" aria-label="JavaScript 功能分頁">
+        <div class="js-showcase__tabs-scroll" data-js-showcase-tabs>
+          <button class="js-showcase__tab is-active" type="button" data-tab="animations" data-lang="jsShowcase.tab.animations">🎬 動畫效果</button>
+          <button class="js-showcase__tab" type="button" data-tab="web-apis" data-lang="jsShowcase.tab.webApis">🌐 Web API</button>
+          <button class="js-showcase__tab" type="button" data-tab="interactions" data-lang="jsShowcase.tab.interactions">⚙️ 互動功能</button>
+          <button class="js-showcase__tab" type="button" data-tab="es-features" data-lang="jsShowcase.tab.esFeatures">⚡ ES 特性</button>
+          <button class="js-showcase__tab" type="button" data-tab="charts" data-lang="jsShowcase.tab.charts">📊 數據可視化</button>
+          <button class="js-showcase__tab" type="button" data-tab="animations-extended" data-lang="jsShowcase.tab.animationsExtended">🎬 擴展動畫</button>
+          <button class="js-showcase__tab" type="button" data-tab="canvas-drawing" data-lang="jsShowcase.tab.canvasDrawing">🎨 繪圖工具</button>
+          <button class="js-showcase__tab" type="button" data-tab="worker" data-lang="jsShowcase.tab.worker">⚡ 多線程</button>
+          <button class="js-showcase__tab" type="button" data-tab="pwa" data-lang="jsShowcase.tab.pwa">📱 PWA</button>
+          <button class="js-showcase__tab" type="button" data-tab="websocket" data-lang="jsShowcase.tab.websocket">🔌 WebSocket</button>
+          <button class="js-showcase__tab" type="button" data-tab="webgl" data-lang="jsShowcase.tab.webgl">🎮 3D 效果</button>
+        </div>
+      </section>
+
+      <!-- Content -->
+      <section class="js-showcase__content mt-6">
+        <div id="animations-tab" class="js-showcase__panel is-active" data-panel="animations">
+          <div class="glass-card p-6">
+            <h2 class="h5 mb-2" data-lang="jsShowcase.panel.loadingTitle">載入中...</h2>
+            <p class="text-secondary" data-lang="jsShowcase.panel.loadingDesc">正在初始化此分頁內容。</p>
+          </div>
+        </div>
+
+        <div id="web-apis-tab" class="js-showcase__panel" data-panel="web-apis"></div>
+        <div id="interactions-tab" class="js-showcase__panel" data-panel="interactions"></div>
+        <div id="es-features-tab" class="js-showcase__panel" data-panel="es-features"></div>
+        <div id="charts-tab" class="js-showcase__panel" data-panel="charts"></div>
+        <div id="animations-extended-tab" class="js-showcase__panel" data-panel="animations-extended"></div>
+        <div id="canvas-drawing-tab" class="js-showcase__panel" data-panel="canvas-drawing"></div>
+        <div id="worker-tab" class="js-showcase__panel" data-panel="worker"></div>
+        <div id="pwa-tab" class="js-showcase__panel" data-panel="pwa"></div>
+        <div id="websocket-tab" class="js-showcase__panel" data-panel="websocket"></div>
+        <div id="webgl-tab" class="js-showcase__panel" data-panel="webgl"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- App init (theme/i18n/components/icons) -->
+  <script type="module" src="../js/main.js?v=20251218_2"></script>
+  <!-- JS Showcase page init (tabs + lazy modules) -->
+  <script type="module" src="../js/pages/js-showcase/index.js?v=20251218_2"></script>
+</body>
+</html>

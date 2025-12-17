@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>通知中心 - NexusAI</title>
+
+    <!-- Head Loader（集中管理核心 CSS/Fonts/版本號） -->
+    <script src="../js/head-loader.js"></script>
+</head>
+<body>
+    <!-- Skip Link (無障礙) -->
+    <a href="#main-content" class="skip-link">跳至主要內容</a>
+
+    <div class="sidebar-layout">
+        <!-- Sidebar Container -->
+        <nav id="sidebar-container" class="sidebar-layout__sidebar" aria-label="側邊導航"></nav>
+
+        <!-- Main Content -->
+        <main id="main-content" class="sidebar-layout__main main-content">
+        <div class="container">
+            <!-- Header -->
+            <header class="page-header">
+                <div>
+                    <h1 class="page-title" data-i18n="notifications.title">通知中心</h1>
+                    <p class="page-subtitle" data-i18n="notifications.subtitle">管理您的所有通知訊息</p>
+                </div>
+                <div class="flex gap-3">
+                    <button class="btn btn--secondary btn--sm" data-lang-toggle aria-label="切換語言">
+                        <span data-lang-display>中</span>
+                    </button>
+                    <button class="btn btn--secondary btn--sm" data-theme-toggle aria-label="切換主題">
+                        <i data-lucide="moon" data-theme-icon></i>
+                    </button>
+                    <button class="btn btn-ghost" id="markAllRead">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M9 11l3 3L22 4" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span data-i18n="notifications.markAllRead">全部標記為已讀</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Filter Tabs -->
+            <div class="glass-card mb-6">
+                <div class="tabs">
+                    <button class="tab-item active" data-filter="all">
+                        <span data-i18n="notifications.all">全部</span>
+                        <span class="badge">12</span>
+                    </button>
+                    <button class="tab-item" data-filter="unread">
+                        <span data-i18n="notifications.unread">未讀</span>
+                        <span class="badge badge-primary">5</span>
+                    </button>
+                    <button class="tab-item" data-filter="read">
+                        <span data-i18n="notifications.read">已讀</span>
+                        <span class="badge">7</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Notifications List -->
+            <div class="notifications-list">
+                <!-- Unread Notification -->
+                <div class="glass-card notification-item unread" data-status="unread">
+                    <div class="notification-icon notification-icon-info">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                            <path d="M12 16v-4m0-4h.01" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="notification-content">
+                        <h3 class="notification-title" data-i18n="notifications.item.systemUpdate.title">系統更新通知</h3>
+                        <p class="notification-description" data-i18n="notifications.item.systemUpdate.desc">NexusAI 平台將於今晚 23:00 進行系統維護，預計維護時間 2 小時。</p>
+                        <span class="notification-time" data-i18n="notifications.time.5mAgo">5 分鐘前</span>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-icon" title="標記為已讀" data-i18n-title="notifications.action.markRead">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M9 11l3 3L22 4" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                        <button class="btn-icon" title="刪除" data-i18n-title="notifications.action.delete">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Unread Notification -->
+                <div class="glass-card notification-item unread" data-status="unread">
+                    <div class="notification-icon notification-icon-success">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M9 11l3 3L22 4" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="notification-content">
+                        <h3 class="notification-title" data-i18n="notifications.item.deploySuccess.title">專案部署成功</h3>
+                        <p class="notification-description" data-i18n="notifications.item.deploySuccess.desc">您的專案 "NexusAI Dashboard" 已成功部署到生產環境。</p>
+                        <span class="notification-time" data-i18n="notifications.time.1hAgo">1 小時前</span>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-icon" title="標記為已讀" data-i18n-title="notifications.action.markRead">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M9 11l3 3L22 4" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                        <button class="btn-icon" title="刪除" data-i18n-title="notifications.action.delete">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Unread Notification -->
+                <div class="glass-card notification-item unread" data-status="unread">
+                    <div class="notification-icon notification-icon-warning">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" stroke-width="2"/>
+                            <path d="M12 9v4m0 4h.01" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="notification-content">
+                        <h3 class="notification-title" data-i18n="notifications.item.apiQuota.title">API 配額即將用盡</h3>
+                        <p class="notification-description" data-i18n="notifications.item.apiQuota.desc">您本月的 API 調用次數已使用 85%，請注意配額管理。</p>
+                        <span class="notification-time" data-i18n="notifications.time.2hAgo">2 小時前</span>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-icon" title="標記為已讀" data-i18n-title="notifications.action.markRead">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M9 11l3 3L22 4" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                        <button class="btn-icon" title="刪除" data-i18n-title="notifications.action.delete">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Unread Notification -->
+                <div class="glass-card notification-item unread" data-status="unread">
+                    <div class="notification-icon notification-icon-error">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                            <path d="M15 9l-6 6m0-6l6 6" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="notification-content">
+                        <h3 class="notification-title" data-i18n="notifications.item.buildFailed.title">建置失敗</h3>
+                        <p class="notification-description" data-i18n="notifications.item.buildFailed.desc">專案 "API Gateway" 建置失敗，請檢查錯誤日誌。</p>
+                        <span class="notification-time" data-i18n="notifications.time.3hAgo">3 小時前</span>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-icon" title="標記為已讀" data-i18n-title="notifications.action.markRead">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M9 11l3 3L22 4" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                        <button class="btn-icon" title="刪除" data-i18n-title="notifications.action.delete">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Unread Notification -->
+                <div class="glass-card notification-item unread" data-status="unread">
+                    <div class="notification-icon notification-icon-info">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke-width="2"/>
+                            <circle cx="9" cy="7" r="4" stroke-width="2"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87m-4-12a4 4 0 0 1 0 7.75" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="notification-content">
+                        <h3 class="notification-title" data-i18n="notifications.item.newMember.title">新成員加入</h3>
+                        <p class="notification-description" data-i18n="notifications.item.newMember.desc">Alice Chen 已加入您的團隊 "Frontend Team"。</p>
+                        <span class="notification-time" data-i18n="notifications.time.5hAgo">5 小時前</span>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-icon" title="標記為已讀" data-i18n-title="notifications.action.markRead">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M9 11l3 3L22 4" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                        <button class="btn-icon" title="刪除" data-i18n-title="notifications.action.delete">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Read Notification -->
+                <div class="glass-card notification-item" data-status="read">
+                    <div class="notification-icon notification-icon-success">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M9 11l3 3L22 4" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="notification-content">
+                        <h3 class="notification-title" data-i18n="notifications.item.backup.title">備份完成</h3>
+                        <p class="notification-description" data-i18n="notifications.item.backup.desc">資料庫備份已成功完成，備份檔案大小：2.3 GB。</p>
+                        <span class="notification-time" data-i18n="notifications.time.yesterday">昨天</span>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-icon" title="刪除" data-i18n-title="notifications.action.delete">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Read Notification -->
+                <div class="glass-card notification-item" data-status="read">
+                    <div class="notification-icon notification-icon-info">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                            <path d="M12 16v-4m0-4h.01" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="notification-content">
+                        <h3 class="notification-title" data-i18n="notifications.item.billing.title">帳單已產生</h3>
+                        <p class="notification-description" data-i18n="notifications.item.billing.desc">您的 12 月帳單已產生，金額：NT$ 12,500。</p>
+                        <span class="notification-time" data-i18n="notifications.time.2dAgo">2 天前</span>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-icon" title="刪除" data-i18n-title="notifications.action.delete">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Read Notification -->
+                <div class="glass-card notification-item" data-status="read">
+                    <div class="notification-icon notification-icon-warning">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" stroke-width="2"/>
+                            <path d="M12 9v4m0 4h.01" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="notification-content">
+                        <h3 class="notification-title" data-i18n="notifications.item.cert.title">憑證即將過期</h3>
+                        <p class="notification-description" data-i18n="notifications.item.cert.desc">SSL 憑證將於 30 天後過期，請及時更新。</p>
+                        <span class="notification-time" data-i18n="notifications.time.3dAgo">3 天前</span>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-icon" title="刪除" data-i18n-title="notifications.action.delete">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Read Notification -->
+                <div class="glass-card notification-item" data-status="read">
+                    <div class="notification-icon notification-icon-success">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M9 11l3 3L22 4" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="notification-content">
+                        <h3 class="notification-title" data-i18n="notifications.item.securityScan.title">安全掃描完成</h3>
+                        <p class="notification-description" data-i18n="notifications.item.securityScan.desc">系統安全掃描已完成，未發現安全漏洞。</p>
+                        <span class="notification-time" data-i18n="notifications.time.1wAgo">1 週前</span>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-icon" title="刪除" data-i18n-title="notifications.action.delete">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Read Notification -->
+                <div class="glass-card notification-item" data-status="read">
+                    <div class="notification-icon notification-icon-info">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                            <path d="M12 16v-4m0-4h.01" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="notification-content">
+                        <h3 class="notification-title" data-i18n="notifications.item.systemUpgrade.title">系統升級通知</h3>
+                        <p class="notification-description" data-i18n="notifications.item.systemUpgrade.desc">NexusAI 已升級至 v2.5.0，新增多項功能。</p>
+                        <span class="notification-time" data-i18n="notifications.time.2wAgo">2 週前</span>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-icon" title="刪除" data-i18n-title="notifications.action.delete">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Read Notification -->
+                <div class="glass-card notification-item" data-status="read">
+                    <div class="notification-icon notification-icon-success">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M9 11l3 3L22 4" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="notification-content">
+                        <h3 class="notification-title" data-i18n="notifications.item.accountVerified.title">帳號驗證成功</h3>
+                        <p class="notification-description" data-i18n="notifications.item.accountVerified.desc">您的帳號已成功通過兩步驟驗證。</p>
+                        <span class="notification-time" data-i18n="notifications.time.1moAgo">1 個月前</span>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-icon" title="刪除" data-i18n-title="notifications.action.delete">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Read Notification -->
+                <div class="glass-card notification-item" data-status="read">
+                    <div class="notification-icon notification-icon-info">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke-width="2"/>
+                            <circle cx="9" cy="7" r="4" stroke-width="2"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87m-4-12a4 4 0 0 1 0 7.75" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="notification-content">
+                        <h3 class="notification-title" data-i18n="notifications.item.welcome.title">歡迎加入 NexusAI</h3>
+                        <p class="notification-description" data-i18n="notifications.item.welcome.desc">感謝您註冊 NexusAI 平台，開始您的 AI 開發之旅！</p>
+                        <span class="notification-time" data-i18n="notifications.time.2moAgo">2 個月前</span>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-icon" title="刪除" data-i18n-title="notifications.action.delete">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script type="module">
+        import { initTheme } from '../js/theme.js';
+        import { initI18n } from '../js/i18n.js';
+        import { render as renderSidebar } from '../js/components/sidebar.js';
+
+        // Initialize
+        initTheme();
+        initI18n();
+
+        // Shared sidebar
+        const sidebarContainer = document.getElementById('sidebar-container');
+        if (sidebarContainer) renderSidebar(sidebarContainer);
+
+        // Lucide
+        (async () => {
+            const { initIcons } = await import('../js/lucide-icons.js');
+            await initIcons();
+        })();
+
+        // Filter Tabs
+        const tabs = document.querySelectorAll('.tab-item');
+        const notifications = document.querySelectorAll('.notification-item');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Filter notifications
+                const filter = tab.dataset.filter;
+                notifications.forEach(notification => {
+                    if (filter === 'all') {
+                        notification.style.display = '';
+                    } else if (filter === 'unread') {
+                        notification.style.display = notification.dataset.status === 'unread' ? '' : 'none';
+                    } else if (filter === 'read') {
+                        notification.style.display = notification.dataset.status === 'read' ? '' : 'none';
+                    }
+                });
+            });
+        });
+
+        // Mark all as read
+        document.getElementById('markAllRead')?.addEventListener('click', () => {
+            notifications.forEach(notification => {
+                notification.classList.remove('unread');
+                notification.dataset.status = 'read';
+            });
+            updateBadges();
+        });
+
+        // Mark individual as read
+        document.querySelectorAll('.notification-item .btn-icon:first-child').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const item = e.target.closest('.notification-item');
+                if (item.classList.contains('unread')) {
+                    item.classList.remove('unread');
+                    item.dataset.status = 'read';
+                    updateBadges();
+                }
+            });
+        });
+
+        // Delete notification
+        document.querySelectorAll('.notification-item .btn-icon:last-child').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const item = e.target.closest('.notification-item');
+                item.style.opacity = '0';
+                item.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    item.remove();
+                    updateBadges();
+                }, 300);
+            });
+        });
+
+        // Update badges
+        function updateBadges() {
+            const unreadCount = document.querySelectorAll('.notification-item.unread').length;
+            const readCount = document.querySelectorAll('.notification-item:not(.unread)').length;
+            const totalCount = unreadCount + readCount;
+
+            document.querySelector('[data-filter="all"] .badge').textContent = totalCount;
+            document.querySelector('[data-filter="unread"] .badge').textContent = unreadCount;
+            document.querySelector('[data-filter="read"] .badge').textContent = readCount;
+        }
+    </script>
+</body>
+</html>

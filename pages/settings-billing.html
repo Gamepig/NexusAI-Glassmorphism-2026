@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>帳單設定 - NexusAI</title>
+
+    <!-- Head Loader（集中管理核心 CSS/Fonts/版本號） -->
+    <script src="../js/head-loader.js"></script>
+</head>
+<body>
+    <!-- Skip Link (無障礙) -->
+    <a href="#main-content" class="skip-link">跳至主要內容</a>
+
+    <div class="sidebar-layout">
+        <!-- Sidebar Container -->
+        <nav id="sidebar-container" class="sidebar-layout__sidebar" aria-label="側邊導航"></nav>
+
+        <!-- Main Content -->
+        <main id="main-content" class="sidebar-layout__main main-content">
+        <div class="container">
+            <!-- Header -->
+            <header class="page-header">
+                <div class="flex items-center justify-between flex-wrap gap-4">
+                    <div>
+                        <h1 class="page-title" data-i18n="settings.title">設定</h1>
+                        <p class="page-subtitle" data-i18n="settings.subtitle">管理您的帳號和偏好設定</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button class="btn btn--secondary btn--sm" data-lang-toggle aria-label="切換語言">
+                            <span data-lang-display>中</span>
+                        </button>
+                        <button class="btn btn--secondary btn--sm" data-theme-toggle aria-label="切換主題">
+                            <i data-lucide="moon" data-theme-icon></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="settings-layout">
+                <!-- Settings Navigation -->
+                <aside class="settings-nav">
+                    <nav class="glass-card">
+                        <a href="settings-general.html" class="settings-nav-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="3" stroke-width="2"/>
+                                <path d="M12 1v6m0 6v10M1 12h6m6 0h10" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span data-i18n="settings.general">一般設定</span>
+                        </a>
+                        <a href="settings-billing.html" class="settings-nav-item active">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="1" y="4" width="22" height="16" rx="2" stroke-width="2"/>
+                                <path d="M1 10h22" stroke-width="2"/>
+                            </svg>
+                            <span data-i18n="settings.billing">帳單設定</span>
+                        </a>
+                        <a href="settings-security.html" class="settings-nav-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="3" y="11" width="18" height="11" rx="2" stroke-width="2"/>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke-width="2"/>
+                            </svg>
+                            <span data-i18n="settings.security">安全設定</span>
+                        </a>
+                    </nav>
+                </aside>
+
+                <!-- Settings Content -->
+                <div class="settings-content">
+                    <!-- Current Plan -->
+                    <section class="glass-card mb-6">
+                        <h2 class="section-title" data-i18n="billing.currentPlan">目前方案</h2>
+                        <div class="plan-card">
+                            <div class="plan-header">
+                                <div>
+                                    <h3 class="plan-name" data-i18n="billing.proPlan">專業版</h3>
+                                    <p class="plan-description" data-i18n="billing.proPlanDesc">適合成長中的團隊與企業</p>
+                                </div>
+                                <div class="plan-price">
+                                    <span class="price-amount">NT$ 2,500</span>
+                                    <span class="price-period" data-i18n="billing.perMonth">/月</span>
+                                </div>
+                            </div>
+                            <div class="plan-features">
+                                <div class="feature-item">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M9 11l3 3L22 4" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    <span data-i18n="billing.feature1">每月 100,000 API 調用</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M9 11l3 3L22 4" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    <span data-i18n="billing.feature2">10 個專案</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M9 11l3 3L22 4" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    <span data-i18n="billing.feature3">優先客戶支援</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M9 11l3 3L22 4" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    <span data-i18n="billing.feature4">進階分析報表</span>
+                                </div>
+                            </div>
+                            <div class="plan-actions">
+                                <button class="btn btn-ghost" data-i18n="billing.changePlan">變更方案</button>
+                                <button class="btn btn-outline-danger" data-i18n="billing.cancelPlan">取消訂閱</button>
+                            </div>
+                        </div>
+                        <div class="billing-cycle">
+                            <span data-i18n="billing.nextBilling">下次扣款日期：</span>
+                            <strong>2025-01-17</strong>
+                        </div>
+                    </section>
+
+                    <!-- Payment Methods -->
+                    <section class="glass-card mb-6">
+                        <div class="section-header">
+                            <h2 class="section-title" data-i18n="billing.paymentMethods">付款方式</h2>
+                            <button class="btn btn-ghost" id="addPaymentMethod">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M12 5v14m-7-7h14" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <span data-i18n="billing.addPayment">新增付款方式</span>
+                            </button>
+                        </div>
+
+                        <div class="payment-methods">
+                            <!-- Primary Payment Method -->
+                            <div class="payment-card primary">
+                                <div class="payment-icon">
+                                    <svg width="40" height="30" viewBox="0 0 40 30" fill="none">
+                                        <rect width="40" height="30" rx="4" fill="url(#card-gradient)"/>
+                                        <rect x="2" y="10" width="36" height="3" fill="white" opacity="0.3"/>
+                                        <defs>
+                                            <linearGradient id="card-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" style="stop-color:var(--primary-500)"/>
+                                                <stop offset="100%" style="stop-color:var(--accent-500)"/>
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <div class="payment-details">
+                                    <div class="payment-type">Visa</div>
+                                    <div class="payment-number">•••• •••• •••• 4242</div>
+                                    <div class="payment-expiry">到期日：12/25</div>
+                                </div>
+                                <div class="payment-badge">
+                                    <span class="badge badge-primary" data-i18n="billing.primary">主要</span>
+                                </div>
+                                <div class="payment-actions">
+                                    <button class="btn-icon" title="編輯">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke-width="2"/>
+                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke-width="2"/>
+                                        </svg>
+                                    </button>
+                                    <button class="btn-icon" title="刪除">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke-width="2"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Secondary Payment Method -->
+                            <div class="payment-card">
+                                <div class="payment-icon">
+                                    <svg width="40" height="30" viewBox="0 0 40 30" fill="none">
+                                        <rect width="40" height="30" rx="4" fill="#6C757D"/>
+                                        <rect x="2" y="10" width="36" height="3" fill="white" opacity="0.3"/>
+                                    </svg>
+                                </div>
+                                <div class="payment-details">
+                                    <div class="payment-type">Mastercard</div>
+                                    <div class="payment-number">•••• •••• •••• 8888</div>
+                                    <div class="payment-expiry">到期日：06/26</div>
+                                </div>
+                                <div class="payment-actions">
+                                    <button class="btn btn-ghost btn-sm" data-i18n="billing.setAsPrimary">設為主要</button>
+                                    <button class="btn-icon" title="編輯">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke-width="2"/>
+                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke-width="2"/>
+                                        </svg>
+                                    </button>
+                                    <button class="btn-icon" title="刪除">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke-width="2"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Billing History -->
+                    <section class="glass-card">
+                        <h2 class="section-title" data-i18n="billing.billingHistory">帳單紀錄</h2>
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th data-i18n="billing.invoice">發票編號</th>
+                                        <th data-i18n="billing.date">日期</th>
+                                        <th data-i18n="billing.description">描述</th>
+                                        <th data-i18n="billing.amount">金額</th>
+                                        <th data-i18n="billing.status">狀態</th>
+                                        <th data-i18n="billing.actions">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>#INV-2024-12</td>
+                                        <td>2024-12-17</td>
+                                        <td>專業版 - 12月份</td>
+                                        <td>NT$ 2,500</td>
+                                        <td><span class="badge badge-success" data-i18n="billing.paid">已付款</span></td>
+                                        <td>
+                                            <button class="btn btn-ghost btn-sm">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-width="2" stroke-linecap="round"/>
+                                                </svg>
+                                                <span data-i18n="billing.download">下載</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#INV-2024-11</td>
+                                        <td>2024-11-17</td>
+                                        <td>專業版 - 11月份</td>
+                                        <td>NT$ 2,500</td>
+                                        <td><span class="badge badge-success" data-i18n="billing.paid">已付款</span></td>
+                                        <td>
+                                            <button class="btn btn-ghost btn-sm">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-width="2" stroke-linecap="round"/>
+                                                </svg>
+                                                <span data-i18n="billing.download">下載</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#INV-2024-10</td>
+                                        <td>2024-10-17</td>
+                                        <td>專業版 - 10月份</td>
+                                        <td>NT$ 2,500</td>
+                                        <td><span class="badge badge-success" data-i18n="billing.paid">已付款</span></td>
+                                        <td>
+                                            <button class="btn btn-ghost btn-sm">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-width="2" stroke-linecap="round"/>
+                                                </svg>
+                                                <span data-i18n="billing.download">下載</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#INV-2024-09</td>
+                                        <td>2024-09-17</td>
+                                        <td>專業版 - 9月份</td>
+                                        <td>NT$ 2,500</td>
+                                        <td><span class="badge badge-success" data-i18n="billing.paid">已付款</span></td>
+                                        <td>
+                                            <button class="btn btn-ghost btn-sm">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-width="2" stroke-linecap="round"/>
+                                                </svg>
+                                                <span data-i18n="billing.download">下載</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#INV-2024-08</td>
+                                        <td>2024-08-17</td>
+                                        <td>專業版 - 8月份</td>
+                                        <td>NT$ 2,500</td>
+                                        <td><span class="badge badge-success" data-i18n="billing.paid">已付款</span></td>
+                                        <td>
+                                            <button class="btn btn-ghost btn-sm">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-width="2" stroke-linecap="round"/>
+                                                </svg>
+                                                <span data-i18n="billing.download">下載</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script type="module">
+        import { initTheme } from '../js/theme.js';
+        import { initI18n } from '../js/i18n.js';
+        import { render as renderSidebar } from '../js/components/sidebar.js';
+
+        // Initialize
+        initTheme();
+        initI18n();
+
+        // Shared sidebar
+        const sidebarContainer = document.getElementById('sidebar-container');
+        if (sidebarContainer) renderSidebar(sidebarContainer);
+
+        // Lucide
+        (async () => {
+            const { initIcons } = await import('../js/lucide-icons.js');
+            await initIcons();
+        })();
+
+        // Add Payment Method
+        document.getElementById('addPaymentMethod')?.addEventListener('click', () => {
+            alert('新增付款方式功能（待實作）');
+        });
+
+        // Download Invoice
+        document.querySelectorAll('.table .btn-ghost').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const row = e.target.closest('tr');
+                const invoice = row.querySelector('td:first-child').textContent;
+                alert(`下載發票 ${invoice}（待實作）`);
+            });
+        });
+    </script>
+</body>
+</html>

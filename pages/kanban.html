@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>看板 - NexusAI</title>
+  <!-- Head Loader（集中管理核心 CSS/Fonts/版本號） -->
+  <script src="../js/head-loader.js"></script>
+  <style>
+    .kanban-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spacing-6);
+      flex-wrap: wrap;
+      gap: var(--spacing-4);
+    }
+
+    .kanban-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .kanban-actions {
+      display: flex;
+      gap: var(--spacing-3);
+    }
+
+    .kanban-board {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-4);
+      margin-bottom: var(--spacing-6);
+    }
+
+    .kanban-column {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-4);
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .kanban-column-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spacing-4);
+      padding-bottom: var(--spacing-3);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .kanban-column-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-2);
+    }
+
+    .kanban-column-count {
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      font-size: 0.875rem;
+    }
+
+    .kanban-cards {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--spacing-2) 0;
+    }
+
+    .kanban-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--glass-blur-light));
+      -webkit-backdrop-filter: blur(var(--glass-blur-light));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-4);
+      margin-bottom: var(--spacing-3);
+      cursor: move;
+      box-shadow: var(--shadow-sm), inset 0 1px 0 var(--glass-highlight);
+      transition: all 0.2s ease;
+    }
+
+    .kanban-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+    }
+
+    .kanban-card.dragging {
+      opacity: 0.5;
+    }
+
+    .kanban-card-title {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .kanban-card-description {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: var(--spacing-3);
+      line-height: 1.5;
+    }
+
+    .kanban-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: var(--spacing-3);
+      padding-top: var(--spacing-3);
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .kanban-card-tags {
+      display: flex;
+      gap: var(--spacing-2);
+      flex-wrap: wrap;
+    }
+
+    .kanban-card-tag {
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .tag-bug { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+    .tag-feature { background: rgba(59, 130, 246, 0.2); color: var(--primary); }
+    .tag-enhancement { background: rgba(16, 185, 129, 0.2); color: var(--success); }
+    .tag-documentation { background: rgba(139, 92, 246, 0.2); color: var(--secondary); }
+
+    .kanban-card-assignee {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-full);
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .add-card-btn {
+      width: 100%;
+      padding: var(--spacing-3);
+      background: var(--bg-secondary);
+      border: 1px dashed var(--glass-border);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
+    }
+
+    .add-card-btn:hover {
+      background: var(--glass-hover);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    @media (max-width: 768px) {
+      .kanban-board {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip Link (無障礙) -->
+  <a href="#main-content" class="skip-link">跳至主要內容</a>
+
+  <div class="sidebar-layout">
+    <nav id="sidebar-container" class="sidebar-layout__sidebar" aria-label="側邊導航"></nav>
+    <main id="main-content" class="sidebar-layout__main">
+      <!-- Header -->
+      <div class="kanban-header">
+        <h1 class="kanban-title" data-lang="kanban.pageTitle">專案看板</h1>
+        <div class="kanban-actions">
+          <input type="text" class="form-input" placeholder="搜尋任務..." data-lang-placeholder="kanban.searchPlaceholder" style="width: 200px;">
+          <select class="form-input" style="width: 150px;">
+            <option data-lang="kanban.filter.allMembers">所有成員</option>
+            <option>Alex</option>
+            <option>Sarah</option>
+            <option>Mike</option>
+          </select>
+          <button class="btn btn--secondary btn--sm" data-lang-toggle aria-label="切換語言">
+            <span data-lang-display>中</span>
+          </button>
+          <button class="btn btn--secondary btn--sm" data-theme-toggle aria-label="切換主題">
+            <i data-lucide="moon" data-theme-icon></i>
+          </button>
+          <button class="btn btn-primary" onclick="addNewCard()" data-lang="kanban.addTask">+ 新增任務</button>
+        </div>
+      </div>
+
+      <!-- Kanban Board -->
+      <div class="kanban-board">
+        <!-- 待辦 -->
+        <div class="kanban-column" data-status="todo">
+          <div class="kanban-column-header">
+            <div class="kanban-column-title">
+              <span>📋</span>
+              <span data-lang="kanban.columns.todo">待辦</span>
+            </div>
+            <span class="kanban-column-count">5</span>
+          </div>
+          <div class="kanban-cards" id="todo-cards">
+            <div class="kanban-card" draggable="true">
+              <div class="kanban-card-title" data-lang="kanban.card.todo1.title">設計新的登入頁面</div>
+              <div class="kanban-card-description" data-lang="kanban.card.todo1.desc">根據最新的設計規範重新設計登入介面</div>
+              <div class="kanban-card-footer">
+                <div class="kanban-card-tags">
+                  <span class="kanban-card-tag tag-feature" data-lang="kanban.tag.feature">功能</span>
+                </div>
+                <div class="kanban-card-assignee">A</div>
+              </div>
+            </div>
+            <div class="kanban-card" draggable="true">
+              <div class="kanban-card-title" data-lang="kanban.card.todo2.title">修復資料表排序問題</div>
+              <div class="kanban-card-description" data-lang="kanban.card.todo2.desc">點擊表頭排序時偶爾會失敗</div>
+              <div class="kanban-card-footer">
+                <div class="kanban-card-tags">
+                  <span class="kanban-card-tag tag-bug" data-lang="kanban.tag.bug">錯誤</span>
+                </div>
+                <div class="kanban-card-assignee">S</div>
+              </div>
+            </div>
+            <div class="kanban-card" draggable="true">
+              <div class="kanban-card-title" data-lang="kanban.card.todo3.title">更新 API 文檔</div>
+              <div class="kanban-card-description" data-lang="kanban.card.todo3.desc">補充新增的 API 端點說明</div>
+              <div class="kanban-card-footer">
+                <div class="kanban-card-tags">
+                  <span class="kanban-card-tag tag-documentation" data-lang="kanban.tag.docs">文件</span>
+                </div>
+                <div class="kanban-card-assignee">M</div>
+              </div>
+            </div>
+            <div class="kanban-card" draggable="true">
+              <div class="kanban-card-title" data-lang="kanban.card.todo4.title">優化搜尋效能</div>
+              <div class="kanban-card-description" data-lang="kanban.card.todo4.desc">大量資料時搜尋速度較慢</div>
+              <div class="kanban-card-footer">
+                <div class="kanban-card-tags">
+                  <span class="kanban-card-tag tag-enhancement" data-lang="kanban.tag.enhancement">改善</span>
+                </div>
+                <div class="kanban-card-assignee">A</div>
+              </div>
+            </div>
+            <div class="kanban-card" draggable="true">
+              <div class="kanban-card-title" data-lang="kanban.card.todo5.title">新增深色模式切換</div>
+              <div class="kanban-card-description" data-lang="kanban.card.todo5.desc">實作全站深色模式</div>
+              <div class="kanban-card-footer">
+                <div class="kanban-card-tags">
+                  <span class="kanban-card-tag tag-feature" data-lang="kanban.tag.feature">功能</span>
+                </div>
+                <div class="kanban-card-assignee">S</div>
+              </div>
+            </div>
+          </div>
+          <button class="add-card-btn" onclick="addNewCard('todo')" data-lang="kanban.addCard">+ 新增卡片</button>
+        </div>
+
+        <!-- 進行中 -->
+        <div class="kanban-column" data-status="inprogress">
+          <div class="kanban-column-header">
+            <div class="kanban-column-title">
+              <span>⚙️</span>
+              <span data-lang="kanban.columns.inProgress">進行中</span>
+            </div>
+            <span class="kanban-column-count">3</span>
+          </div>
+          <div class="kanban-cards" id="inprogress-cards">
+            <div class="kanban-card" draggable="true">
+              <div class="kanban-card-title" data-lang="kanban.card.inProgress1.title">實作拖放功能</div>
+              <div class="kanban-card-description" data-lang="kanban.card.inProgress1.desc">開發看板的拖放排序功能</div>
+              <div class="kanban-card-footer">
+                <div class="kanban-card-tags">
+                  <span class="kanban-card-tag tag-feature" data-lang="kanban.tag.feature">功能</span>
+                </div>
+                <div class="kanban-card-assignee">A</div>
+              </div>
+            </div>
+            <div class="kanban-card" draggable="true">
+              <div class="kanban-card-title" data-lang="kanban.card.inProgress2.title">整合 i18n 系統</div>
+              <div class="kanban-card-description" data-lang="kanban.card.inProgress2.desc">實作多語言支援</div>
+              <div class="kanban-card-footer">
+                <div class="kanban-card-tags">
+                  <span class="kanban-card-tag tag-feature" data-lang="kanban.tag.feature">功能</span>
+                </div>
+                <div class="kanban-card-assignee">M</div>
+              </div>
+            </div>
+            <div class="kanban-card" draggable="true">
+              <div class="kanban-card-title" data-lang="kanban.card.inProgress3.title">撰寫單元測試</div>
+              <div class="kanban-card-description" data-lang="kanban.card.inProgress3.desc">為核心功能增加測試覆蓋率</div>
+              <div class="kanban-card-footer">
+                <div class="kanban-card-tags">
+                  <span class="kanban-card-tag tag-enhancement" data-lang="kanban.tag.enhancement">改善</span>
+                </div>
+                <div class="kanban-card-assignee">S</div>
+              </div>
+            </div>
+          </div>
+          <button class="add-card-btn" onclick="addNewCard('inprogress')" data-lang="kanban.addCard">+ 新增卡片</button>
+        </div>
+
+        <!-- 已完成 -->
+        <div class="kanban-column" data-status="done">
+          <div class="kanban-column-header">
+            <div class="kanban-column-title">
+              <span>✅</span>
+              <span data-lang="kanban.columns.done">已完成</span>
+            </div>
+            <span class="kanban-column-count">4</span>
+          </div>
+          <div class="kanban-cards" id="done-cards">
+            <div class="kanban-card" draggable="true">
+              <div class="kanban-card-title" data-lang="kanban.card.done1.title">建立 Glassmorphism 樣式系統</div>
+              <div class="kanban-card-description" data-lang="kanban.card.done1.desc">完成毛玻璃設計系統</div>
+              <div class="kanban-card-footer">
+                <div class="kanban-card-tags">
+                  <span class="kanban-card-tag tag-feature" data-lang="kanban.tag.feature">功能</span>
+                </div>
+                <div class="kanban-card-assignee">A</div>
+              </div>
+            </div>
+            <div class="kanban-card" draggable="true">
+              <div class="kanban-card-title" data-lang="kanban.card.done2.title">設計響應式導航列</div>
+              <div class="kanban-card-description" data-lang="kanban.card.done2.desc">RWD 導航元件</div>
+              <div class="kanban-card-footer">
+                <div class="kanban-card-tags">
+                  <span class="kanban-card-tag tag-feature" data-lang="kanban.tag.feature">功能</span>
+                </div>
+                <div class="kanban-card-assignee">S</div>
+              </div>
+            </div>
+            <div class="kanban-card" draggable="true">
+              <div class="kanban-card-title" data-lang="kanban.card.done3.title">實作主題切換</div>
+              <div class="kanban-card-description" data-lang="kanban.card.done3.desc">淺色/深色模式切換</div>
+              <div class="kanban-card-footer">
+                <div class="kanban-card-tags">
+                  <span class="kanban-card-tag tag-feature" data-lang="kanban.tag.feature">功能</span>
+                </div>
+                <div class="kanban-card-assignee">M</div>
+              </div>
+            </div>
+            <div class="kanban-card" draggable="true">
+              <div class="kanban-card-title" data-lang="kanban.card.done4.title">建立設計規範文檔</div>
+              <div class="kanban-card-description" data-lang="kanban.card.done4.desc">完整的設計系統說明</div>
+              <div class="kanban-card-footer">
+                <div class="kanban-card-tags">
+                  <span class="kanban-card-tag tag-documentation" data-lang="kanban.tag.docs">文件</span>
+                </div>
+                <div class="kanban-card-assignee">A</div>
+              </div>
+            </div>
+          </div>
+          <button class="add-card-btn" onclick="addNewCard('done')" data-lang="kanban.addCard">+ 新增卡片</button>
+        </div>
+
+        <!-- 已封存 -->
+        <div class="kanban-column" data-status="archived">
+          <div class="kanban-column-header">
+            <div class="kanban-column-title">
+              <span>📦</span>
+              <span data-lang="kanban.columns.archived">已封存</span>
+            </div>
+            <span class="kanban-column-count">2</span>
+          </div>
+          <div class="kanban-cards" id="archived-cards">
+            <div class="kanban-card" draggable="true">
+              <div class="kanban-card-title" data-lang="kanban.card.archived1.title">研究競品分析</div>
+              <div class="kanban-card-description" data-lang="kanban.card.archived1.desc">分析市場上類似產品</div>
+              <div class="kanban-card-footer">
+                <div class="kanban-card-tags">
+                  <span class="kanban-card-tag tag-documentation" data-lang="kanban.tag.docs">文件</span>
+                </div>
+                <div class="kanban-card-assignee">M</div>
+              </div>
+            </div>
+            <div class="kanban-card" draggable="true">
+              <div class="kanban-card-title" data-lang="kanban.card.archived2.title">初版原型設計</div>
+              <div class="kanban-card-description" data-lang="kanban.card.archived2.desc">早期設計概念</div>
+              <div class="kanban-card-footer">
+                <div class="kanban-card-tags">
+                  <span class="kanban-card-tag tag-feature" data-lang="kanban.tag.feature">功能</span>
+                </div>
+                <div class="kanban-card-assignee">S</div>
+              </div>
+            </div>
+          </div>
+          <button class="add-card-btn" onclick="addNewCard('archived')" data-lang="kanban.addCard">+ 新增卡片</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module">
+    import { initTheme } from '../js/theme.js';
+    import { initI18n, t } from '../js/i18n.js';
+    import { render as renderSidebar } from '../js/components/sidebar.js';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      initTheme();
+      initI18n();
+      const sidebarContainer = document.getElementById('sidebar-container');
+      if (sidebarContainer) renderSidebar(sidebarContainer);
+      // 初始化 Lucide Icons
+      const { initIcons } = await import('../js/lucide-icons.js');
+      await initIcons();
+
+      // Drag and Drop
+      initDragAndDrop();
+      updateCardCounts();
+    });
+
+    function initDragAndDrop() {
+      let draggedCard = null;
+
+      document.querySelectorAll('.kanban-card').forEach(card => {
+        card.addEventListener('dragstart', (e) => {
+          draggedCard = card;
+          card.classList.add('dragging');
+        });
+
+        card.addEventListener('dragend', () => {
+          card.classList.remove('dragging');
+          updateCardCounts();
+        });
+      });
+
+      document.querySelectorAll('.kanban-cards').forEach(column => {
+        column.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          const afterElement = getDragAfterElement(column, e.clientY);
+          if (draggedCard) {
+            if (afterElement == null) {
+              column.appendChild(draggedCard);
+            } else {
+              column.insertBefore(draggedCard, afterElement);
+            }
+          }
+        });
+      });
+    }
+
+    function getDragAfterElement(container, y) {
+      const draggableElements = [...container.querySelectorAll('.kanban-card:not(.dragging)')];
+      return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+          return { offset: offset, element: child };
+        } else {
+          return closest;
+        }
+      }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+
+    function updateCardCounts() {
+      document.querySelectorAll('.kanban-column').forEach(column => {
+        const count = column.querySelectorAll('.kanban-card').length;
+        const countElement = column.querySelector('.kanban-column-count');
+        if (countElement) {
+          countElement.textContent = count;
+        }
+      });
+    }
+
+    window.addNewCard = function(status = 'todo') {
+      const title = prompt(t('kanban.prompt.taskTitle'));
+      if (!title) return;
+
+      const card = document.createElement('div');
+      card.className = 'kanban-card';
+      card.draggable = true;
+      card.innerHTML = `
+        <div class="kanban-card-title">${title}</div>
+        <div class="kanban-card-description">${t('kanban.newTask.desc')}</div>
+        <div class="kanban-card-footer">
+          <div class="kanban-card-tags">
+            <span class="kanban-card-tag tag-feature">${t('kanban.tag.feature')}</span>
+          </div>
+          <div class="kanban-card-assignee">N</div>
+        </div>
+      `;
+
+      // Add drag events
+      card.addEventListener('dragstart', (e) => {
+        card.classList.add('dragging');
+      });
+      card.addEventListener('dragend', () => {
+        card.classList.remove('dragging');
+        updateCardCounts();
+      });
+
+      const targetColumn = document.getElementById(`${status}-cards`);
+      if (targetColumn) {
+        targetColumn.appendChild(card);
+        updateCardCounts();
+      }
+    };
+  </script>
+</body>
+</html>

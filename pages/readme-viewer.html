@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>README 閱讀器 - NexusAI</title>
+
+    <!-- Head Loader（集中管理核心 CSS/Fonts/版本號） -->
+    <script src="../js/head-loader.js"></script>
+
+    <!-- Markdown Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Syntax Highlighter -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+<body>
+    <!-- Skip Link (無障礙) -->
+    <a href="#main-content" class="skip-link">跳至主要內容</a>
+
+    <div class="sidebar-layout">
+        <!-- Sidebar Container -->
+        <nav id="sidebar-container" class="sidebar-layout__sidebar" aria-label="側邊導航"></nav>
+
+        <!-- Main Content -->
+        <main id="main-content" class="sidebar-layout__main main-content">
+        <div class="container-fluid">
+            <!-- Header -->
+            <header class="page-header">
+                <div>
+                    <h1 class="page-title" data-i18n="readme.title">README 閱讀器</h1>
+                    <p class="page-subtitle" data-i18n="readme.subtitle">瀏覽專案文檔與說明</p>
+                </div>
+                <div class="flex gap-3">
+                    <button class="btn btn--secondary btn--sm" data-lang-toggle aria-label="切換語言">
+                        <span data-lang-display>中</span>
+                    </button>
+                    <button class="btn btn--secondary btn--sm" data-theme-toggle aria-label="切換主題">
+                        <i data-lucide="moon" data-theme-icon></i>
+                    </button>
+                    <button class="btn btn-ghost" id="refreshBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 2v6h-6M3 12a9 9 0 0 1 15-6.7L21 8M3 22v-6h6M21 12a9 9 0 0 1-15 6.7L3 16" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span data-i18n="readme.refresh">重新整理</span>
+                    </button>
+                    <button class="btn btn-primary" id="exportBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span data-i18n="readme.export">匯出 PDF</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Readme Viewer Layout -->
+            <div class="readme-layout">
+                <!-- File List -->
+                <aside class="file-list glass-card">
+                    <div class="file-list-header">
+                        <h3 data-i18n="readme.files">檔案列表</h3>
+                        <div class="search-box">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="11" cy="11" r="8" stroke-width="2"/>
+                                <path d="M21 21l-4.35-4.35" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <input type="text" placeholder="搜尋檔案..." id="fileSearch">
+                        </div>
+                    </div>
+                    <nav class="file-tree">
+                        <div class="file-item active" data-file="readme">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-width="2"/>
+                                <path d="M14 2v6h6" stroke-width="2"/>
+                            </svg>
+                            <span>README.md</span>
+                        </div>
+                        <div class="file-item" data-file="contributing">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-width="2"/>
+                                <path d="M14 2v6h6" stroke-width="2"/>
+                            </svg>
+                            <span>CONTRIBUTING.md</span>
+                        </div>
+                        <div class="file-item" data-file="changelog">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-width="2"/>
+                                <path d="M14 2v6h6" stroke-width="2"/>
+                            </svg>
+                            <span>CHANGELOG.md</span>
+                        </div>
+                        <div class="file-item" data-file="license">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-width="2"/>
+                                <path d="M14 2v6h6" stroke-width="2"/>
+                            </svg>
+                            <span>LICENSE</span>
+                        </div>
+                        <div class="folder-item" data-folder="docs">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" stroke-width="2"/>
+                            </svg>
+                            <span>docs/</span>
+                        </div>
+                        <div class="file-item nested" data-file="installation">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-width="2"/>
+                                <path d="M14 2v6h6" stroke-width="2"/>
+                            </svg>
+                            <span>Installation.md</span>
+                        </div>
+                        <div class="file-item nested" data-file="api">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-width="2"/>
+                                <path d="M14 2v6h6" stroke-width="2"/>
+                            </svg>
+                            <span>API.md</span>
+                        </div>
+                        <div class="file-item nested" data-file="deployment">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-width="2"/>
+                                <path d="M14 2v6h6" stroke-width="2"/>
+                            </svg>
+                            <span>Deployment.md</span>
+                        </div>
+                    </nav>
+                </aside>
+
+                <!-- Content Viewer -->
+                <div class="readme-content glass-card">
+                    <div class="content-header">
+                        <div class="breadcrumb">
+                            <span>NexusAI</span>
+                            <span>/</span>
+                            <span class="current-file">README.md</span>
+                        </div>
+                        <div class="content-actions">
+                            <button class="btn-icon" title="複製內容" id="copyContent">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" stroke-width="2"/>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke-width="2"/>
+                                </svg>
+                            </button>
+                            <button class="btn-icon" title="原始檔案" id="rawContent">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="markdown-body" id="markdownContent">
+                        <!-- Markdown content will be rendered here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script type="module">
+        import { initTheme } from '../js/theme.js';
+        import { initI18n } from '../js/i18n.js';
+        import { render as renderSidebar } from '../js/components/sidebar.js';
+
+        // Initialize
+        initTheme();
+        initI18n();
+
+        // Shared sidebar
+        const sidebarContainer = document.getElementById('sidebar-container');
+        if (sidebarContainer) renderSidebar(sidebarContainer);
+
+        // Lucide
+        (async () => {
+            const { initIcons } = await import('../js/lucide-icons.js');
+            await initIcons();
+        })();
+
+        // Sample README content
+        const readmeContent = `# NexusAI Glassmorphism UI Kit
+
+> 現代化的 Glassmorphism 設計系統，專為 AI 開發平台打造
+
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/nexusai/ui-kit)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/nexusai/ui-kit/actions)
+
+## 特色功能
+
+- 🎨 **Glassmorphism 設計** - 採用最新的毛玻璃擬態設計風格
+- 🌓 **深色/淺色主題** - 完整支援主題切換，跟隨系統設定
+- 🌍 **多語言支援** - 內建繁中、簡中、英文、日文介面
+- 📱 **完全響應式** - 適配所有裝置尺寸，從手機到桌面
+- ⚡ **高效能** - 優化的 CSS 動畫與 JavaScript 效能
+- 🎯 **模組化架構** - 易於維護與擴展的程式碼結構
+- ♿ **無障礙設計** - 符合 WCAG 2.1 AA 標準
+
+## 快速開始
+
+### 安裝
+
+\`\`\`bash
+# Clone 專案
+git clone https://github.com/nexusai/glassmorphism-ui.git
+
+# 進入專案目錄
+cd glassmorphism-ui
+
+# 啟動開發伺服器
+npm run dev
+\`\`\`
+
+### 基本使用
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <link rel="stylesheet" href="css/design-tokens.css">
+    <link rel="stylesheet" href="css/glassmorphism.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <div class="glass-card">
+        <h2>Hello, NexusAI!</h2>
+        <p>開始使用 Glassmorphism UI Kit</p>
+    </div>
+</body>
+</html>
+\`\`\`
+
+## 專案結構
+
+\`\`\`
+nexus-Glassmorphism/
+├── css/
+│   ├── design-tokens.css    # 設計變數與主題定義
+│   ├── glassmorphism.css    # 毛玻璃效果核心樣式
+│   ├── typography.css       # 字體排版系統
+│   ├── layout.css          # 版面配置工具
+│   ├── components.css      # UI 組件樣式
+│   ├── animations.css      # 動畫效果
+│   └── responsive.css      # 響應式設計
+├── js/
+│   ├── theme.js           # 主題切換邏輯
+│   ├── i18n.js            # 國際化系統
+│   ├── utils.js           # 工具函數
+│   └── components/        # 組件腳本
+├── pages/
+│   ├── dashboard.html     # 儀表板頁面
+│   ├── notifications.html # 通知中心
+│   ├── settings-*.html    # 設定頁面
+│   └── readme-viewer.html # 文檔閱讀器
+└── index.html            # 首頁
+\`\`\`
+
+## CSS 類別參考
+
+### Glass Card
+
+\`\`\`html
+<div class="glass-card">
+    內容區塊
+</div>
+\`\`\`
+
+### 按鈕
+
+\`\`\`html
+<button class="btn btn-primary">主要按鈕</button>
+<button class="btn btn-ghost">次要按鈕</button>
+<button class="btn btn-outline-danger">危險操作</button>
+\`\`\`
+
+### 表單元素
+
+\`\`\`html
+<label class="form-label">欄位名稱</label>
+<input type="text" class="form-input" placeholder="請輸入...">
+<small class="form-help">輔助說明文字</small>
+\`\`\`
+
+## 主題自訂
+
+修改 \`design-tokens.css\` 中的 CSS 變數：
+
+\`\`\`css
+:root {
+    --primary-500: #3b82f6;
+    --accent-500: #8b5cf6;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.18);
+}
+\`\`\`
+
+## 瀏覽器支援
+
+| Chrome | Firefox | Safari | Edge |
+|--------|---------|--------|------|
+| ✅ 90+ | ✅ 88+ | ✅ 14+ | ✅ 90+ |
+
+## 貢獻指南
+
+歡迎提交 Issue 與 Pull Request！請參閱 [CONTRIBUTING.md](CONTRIBUTING.md) 了解詳細資訊。
+
+## 授權條款
+
+本專案採用 [MIT License](LICENSE) 授權。
+
+## 致謝
+
+感謝所有貢獻者與開源社群的支持！
+
+---
+
+**Made with ❤️ by NexusAI Team**
+`;
+
+        // Configure marked
+        marked.setOptions({
+            highlight: function(code, lang) {
+                if (lang && hljs.getLanguage(lang)) {
+                    return hljs.highlight(code, { language: lang }).value;
+                }
+                return hljs.highlightAuto(code).value;
+            },
+            breaks: true,
+            gfm: true
+        });
+
+        // Render markdown
+        function renderMarkdown(content) {
+            const markdownBody = document.getElementById('markdownContent');
+            markdownBody.innerHTML = marked.parse(content);
+            hljs.highlightAll();
+        }
+
+        // Initialize with README content
+        renderMarkdown(readmeContent);
+
+        // File selection
+        document.querySelectorAll('.file-item').forEach(item => {
+            item.addEventListener('click', () => {
+                // Update active state
+                document.querySelectorAll('.file-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+
+                // Update breadcrumb
+                document.querySelector('.current-file').textContent = item.querySelector('span').textContent;
+
+                // Load different content based on file
+                const file = item.dataset.file;
+                if (file === 'readme') {
+                    renderMarkdown(readmeContent);
+                } else {
+                    renderMarkdown(`# ${item.querySelector('span').textContent}\n\n內容載入中...`);
+                }
+            });
+        });
+
+        // Folder toggle
+        document.querySelectorAll('.folder-item').forEach(folder => {
+            folder.addEventListener('click', () => {
+                folder.classList.toggle('expanded');
+                const nested = document.querySelectorAll('.file-item.nested');
+                nested.forEach(item => {
+                    item.style.display = folder.classList.contains('expanded') ? 'flex' : 'none';
+                });
+            });
+        });
+
+        // File search
+        document.getElementById('fileSearch')?.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            document.querySelectorAll('.file-item, .folder-item').forEach(item => {
+                const text = item.querySelector('span').textContent.toLowerCase();
+                item.style.display = text.includes(query) ? 'flex' : 'none';
+            });
+        });
+
+        // Copy content
+        document.getElementById('copyContent')?.addEventListener('click', async () => {
+            const content = document.getElementById('markdownContent').textContent;
+            await navigator.clipboard.writeText(content);
+            alert('內容已複製到剪貼簿');
+        });
+
+        // Raw content
+        document.getElementById('rawContent')?.addEventListener('click', () => {
+            const win = window.open('', '_blank');
+            win.document.write(`<pre>${readmeContent}</pre>`);
+        });
+
+        // Refresh
+        document.getElementById('refreshBtn')?.addEventListener('click', () => {
+            renderMarkdown(readmeContent);
+            alert('內容已重新載入');
+        });
+
+        // Export PDF
+        document.getElementById('exportBtn')?.addEventListener('click', () => {
+            alert('匯出 PDF 功能（待實作）');
+        });
+    </script>
+</body>
+</html>

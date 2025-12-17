@@ -23,6 +23,9 @@ build/
 .cache/
 *.cache
 
+# Auto generated summaries
+.code-summary/
+
 # Logs
 logs/
 *.log

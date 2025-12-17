@@ -128,6 +128,34 @@ function formatFileSize(bytes) {
 }
 
 // ========================================
+// 安全工具
+// ========================================
+
+/**
+ * 轉義 HTML 防止 XSS 攻擊
+ */
+function escapeHtml(unsafe) {
+  if (typeof unsafe !== 'string') return '';
+  return unsafe
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+/**
+ * 初始化 Lucide Icons
+ * @param {HTMLElement|Document} container - 要掃描的容器，預設為整個文檔
+ * @deprecated 請使用 lucide-icons.js 中的 initIcons
+ */
+async function initIcons(container) {
+  // 動態導入 Lucide Icons 模組
+  const { initIcons: lucideInitIcons } = await import('./lucide-icons.js');
+  await lucideInitIcons(container);
+}
+
+// ========================================
 // 字串工具
 // ========================================
 
@@ -298,6 +326,8 @@ export {
   $,
   $$,
   createElement,
+  escapeHtml,
+  initIcons,
   formatNumber,
   formatCurrency,
   formatDate,

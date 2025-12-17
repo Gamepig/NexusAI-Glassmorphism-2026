@@ -42,6 +42,10 @@
   animation: fadeInRight var(--duration-500) var(--ease-smooth) forwards;
 }
 
+.animate-out {
+  animation: fadeOutRight var(--duration-300) var(--ease-smooth) forwards;
+}
+
 .animate-scale-in {
   animation: scaleIn var(--duration-300) var(--ease-bounce) forwards;
 }
@@ -97,6 +101,22 @@
     opacity: 1;
     transform: translateX(0);
   }
+}
+
+@keyframes fadeOutRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+}
+
+@keyframes toast-progress {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
 }
 
 @keyframes scaleIn {

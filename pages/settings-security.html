@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安全設定 - NexusAI</title>
+
+    <!-- Head Loader（集中管理核心 CSS/Fonts/版本號） -->
+    <script src="../js/head-loader.js"></script>
+</head>
+<body>
+    <!-- Skip Link (無障礙) -->
+    <a href="#main-content" class="skip-link">跳至主要內容</a>
+
+    <div class="sidebar-layout">
+        <!-- Sidebar Container -->
+        <nav id="sidebar-container" class="sidebar-layout__sidebar" aria-label="側邊導航"></nav>
+
+        <!-- Main Content -->
+        <main id="main-content" class="sidebar-layout__main main-content">
+        <div class="container">
+            <!-- Header -->
+            <header class="page-header">
+                <div class="flex items-center justify-between flex-wrap gap-4">
+                    <div>
+                        <h1 class="page-title" data-i18n="settings.title">設定</h1>
+                        <p class="page-subtitle" data-i18n="settings.subtitle">管理您的帳號和偏好設定</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button class="btn btn--secondary btn--sm" data-lang-toggle aria-label="切換語言">
+                            <span data-lang-display>中</span>
+                        </button>
+                        <button class="btn btn--secondary btn--sm" data-theme-toggle aria-label="切換主題">
+                            <i data-lucide="moon" data-theme-icon></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="settings-layout">
+                <!-- Settings Navigation -->
+                <aside class="settings-nav">
+                    <nav class="glass-card">
+                        <a href="settings-general.html" class="settings-nav-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="3" stroke-width="2"/>
+                                <path d="M12 1v6m0 6v10M1 12h6m6 0h10" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span data-i18n="settings.general">一般設定</span>
+                        </a>
+                        <a href="settings-billing.html" class="settings-nav-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="1" y="4" width="22" height="16" rx="2" stroke-width="2"/>
+                                <path d="M1 10h22" stroke-width="2"/>
+                            </svg>
+                            <span data-i18n="settings.billing">帳單設定</span>
+                        </a>
+                        <a href="settings-security.html" class="settings-nav-item active">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="3" y="11" width="18" height="11" rx="2" stroke-width="2"/>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke-width="2"/>
+                            </svg>
+                            <span data-i18n="settings.security">安全設定</span>
+                        </a>
+                    </nav>
+                </aside>
+
+                <!-- Settings Content -->
+                <div class="settings-content">
+                    <!-- Password Change -->
+                    <section class="glass-card mb-6">
+                        <h2 class="section-title" data-i18n="security.changePassword">變更密碼</h2>
+                        <form class="settings-form">
+                            <div class="form-group">
+                                <label class="form-label" for="currentPassword" data-i18n="security.currentPassword">目前密碼</label>
+                                <input type="password" id="currentPassword" class="form-input" placeholder="請輸入目前密碼">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="newPassword" data-i18n="security.newPassword">新密碼</label>
+                                <input type="password" id="newPassword" class="form-input" placeholder="請輸入新密碼">
+                                <div class="password-strength" id="passwordStrength">
+                                    <div class="strength-bar">
+                                        <div class="strength-fill" data-strength="0"></div>
+                                    </div>
+                                    <span class="strength-text" data-i18n="security.passwordStrength">密碼強度：</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="confirmPassword" data-i18n="security.confirmPassword">確認新密碼</label>
+                                <input type="password" id="confirmPassword" class="form-input" placeholder="請再次輸入新密碼">
+                            </div>
+
+                            <div class="password-requirements">
+                                <p class="requirements-title" data-i18n="security.passwordRequirements">密碼必須包含：</p>
+                                <ul class="requirements-list">
+                                    <li class="requirement-item" data-requirement="length">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                                        </svg>
+                                        <span data-i18n="security.minLength">至少 8 個字元</span>
+                                    </li>
+                                    <li class="requirement-item" data-requirement="uppercase">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                                        </svg>
+                                        <span data-i18n="security.uppercase">至少一個大寫字母</span>
+                                    </li>
+                                    <li class="requirement-item" data-requirement="lowercase">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                                        </svg>
+                                        <span data-i18n="security.lowercase">至少一個小寫字母</span>
+                                    </li>
+                                    <li class="requirement-item" data-requirement="number">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                                        </svg>
+                                        <span data-i18n="security.number">至少一個數字</span>
+                                    </li>
+                                    <li class="requirement-item" data-requirement="special">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                                        </svg>
+                                        <span data-i18n="security.special">至少一個特殊字元</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary" data-i18n="security.updatePassword">更新密碼</button>
+                            </div>
+                        </form>
+                    </section>
+
+                    <!-- Two-Factor Authentication -->
+                    <section class="glass-card mb-6">
+                        <h2 class="section-title" data-i18n="security.twoFactor">兩步驟驗證</h2>
+                        <div class="two-factor-status">
+                            <div class="status-info">
+                                <div class="status-icon status-icon-success">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2"/>
+                                        <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="status-title" data-i18n="security.twoFactorEnabled">兩步驟驗證已啟用</h3>
+                                    <p class="status-description" data-i18n="security.twoFactorDesc">您的帳號已受到額外的安全保護</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline-danger" id="disableTwoFactor" data-i18n="security.disable">停用</button>
+                        </div>
+
+                        <div class="two-factor-methods">
+                            <div class="method-item">
+                                <div class="method-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <rect x="5" y="2" width="14" height="20" rx="2" stroke-width="2"/>
+                                        <path d="M12 18h.01" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                <div class="method-details">
+                                    <h4 class="method-name" data-i18n="security.authenticatorApp">驗證器應用程式</h4>
+                                    <p class="method-description" data-i18n="security.authenticatorDesc">使用 Google Authenticator 或類似應用程式</p>
+                                </div>
+                                <div class="method-status">
+                                    <span class="badge badge-success" data-i18n="security.active">使用中</span>
+                                </div>
+                            </div>
+
+                            <div class="method-item">
+                                <div class="method-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke-width="2"/>
+                                        <path d="M22 6l-10 7L2 6" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                                <div class="method-details">
+                                    <h4 class="method-name" data-i18n="security.emailCode">Email 驗證碼</h4>
+                                    <p class="method-description" data-i18n="security.emailCodeDesc">接收驗證碼到您的信箱</p>
+                                </div>
+                                <div class="method-status">
+                                    <button class="btn btn-ghost btn-sm" data-i18n="security.setup">設定</button>
+                                </div>
+                            </div>
+
+                            <div class="method-item">
+                                <div class="method-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                                <div class="method-details">
+                                    <h4 class="method-name" data-i18n="security.smsCode">SMS 驗證碼</h4>
+                                    <p class="method-description" data-i18n="security.smsCodeDesc">接收驗證碼到您的手機</p>
+                                </div>
+                                <div class="method-status">
+                                    <button class="btn btn-ghost btn-sm" data-i18n="security.setup">設定</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="backup-codes">
+                            <h4 class="backup-title" data-i18n="security.backupCodes">備用驗證碼</h4>
+                            <p class="backup-description" data-i18n="security.backupCodesDesc">您還有 8 組備用驗證碼可使用</p>
+                            <button class="btn btn-ghost" data-i18n="security.viewCodes">查看備用驗證碼</button>
+                        </div>
+                    </section>
+
+                    <!-- Login Activity -->
+                    <section class="glass-card">
+                        <h2 class="section-title" data-i18n="security.loginActivity">登入活動</h2>
+                        <div class="activity-list">
+                            <!-- Current Session -->
+                            <div class="activity-item current">
+                                <div class="activity-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <rect x="2" y="3" width="20" height="14" rx="2" stroke-width="2"/>
+                                        <path d="M8 21h8M12 17v4" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                                <div class="activity-details">
+                                    <h4 class="activity-location">台北, 台灣</h4>
+                                    <p class="activity-device">Chrome on macOS • 210.71.XXX.XXX</p>
+                                    <p class="activity-time">目前連線中</p>
+                                </div>
+                                <div class="activity-badge">
+                                    <span class="badge badge-success" data-i18n="security.current">目前連線</span>
+                                </div>
+                            </div>
+
+                            <!-- Previous Sessions -->
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <rect x="5" y="2" width="14" height="20" rx="2" stroke-width="2"/>
+                                        <path d="M12 18h.01" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                <div class="activity-details">
+                                    <h4 class="activity-location">台北, 台灣</h4>
+                                    <p class="activity-device">Safari on iOS • 210.71.XXX.XXX</p>
+                                    <p class="activity-time">2 小時前</p>
+                                </div>
+                                <button class="btn btn-ghost btn-sm" data-i18n="security.revoke">登出</button>
+                            </div>
+
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <rect x="2" y="3" width="20" height="14" rx="2" stroke-width="2"/>
+                                        <path d="M8 21h8M12 17v4" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                                <div class="activity-details">
+                                    <h4 class="activity-location">新北, 台灣</h4>
+                                    <p class="activity-device">Firefox on Windows • 118.163.XXX.XXX</p>
+                                    <p class="activity-time">昨天</p>
+                                </div>
+                                <button class="btn btn-ghost btn-sm" data-i18n="security.revoke">登出</button>
+                            </div>
+
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <rect x="2" y="3" width="20" height="14" rx="2" stroke-width="2"/>
+                                        <path d="M8 21h8M12 17v4" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                                <div class="activity-details">
+                                    <h4 class="activity-location">台北, 台灣</h4>
+                                    <p class="activity-device">Chrome on macOS • 210.71.XXX.XXX</p>
+                                    <p class="activity-time">3 天前</p>
+                                </div>
+                                <button class="btn btn-ghost btn-sm" data-i18n="security.revoke">登出</button>
+                            </div>
+
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <rect x="5" y="2" width="14" height="20" rx="2" stroke-width="2"/>
+                                        <path d="M12 18h.01" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                <div class="activity-details">
+                                    <h4 class="activity-location">台北, 台灣</h4>
+                                    <p class="activity-device">Chrome on Android • 210.71.XXX.XXX</p>
+                                    <p class="activity-time">1 週前</p>
+                                </div>
+                                <button class="btn btn-ghost btn-sm" data-i18n="security.revoke">登出</button>
+                            </div>
+                        </div>
+
+                        <div class="activity-actions">
+                            <button class="btn btn-outline-danger" data-i18n="security.logoutAll">登出所有裝置</button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script type="module">
+        import { initTheme } from '../js/theme.js';
+        import { initI18n } from '../js/i18n.js';
+        import { render as renderSidebar } from '../js/components/sidebar.js';
+
+        // Initialize
+        initTheme();
+        initI18n();
+
+        // Shared sidebar
+        const sidebarContainer = document.getElementById('sidebar-container');
+        if (sidebarContainer) renderSidebar(sidebarContainer);
+
+        // Lucide
+        (async () => {
+            const { initIcons } = await import('../js/lucide-icons.js');
+            await initIcons();
+        })();
+
+        // Password Strength Checker
+        const newPasswordInput = document.getElementById('newPassword');
+        newPasswordInput?.addEventListener('input', (e) => {
+            const password = e.target.value;
+            const requirements = {
+                length: password.length >= 8,
+                uppercase: /[A-Z]/.test(password),
+                lowercase: /[a-z]/.test(password),
+                number: /[0-9]/.test(password),
+                special: /[^A-Za-z0-9]/.test(password)
+            };
+
+            // Update requirement indicators
+            Object.keys(requirements).forEach(req => {
+                const item = document.querySelector(`[data-requirement="${req}"]`);
+                if (requirements[req]) {
+                    item.classList.add('met');
+                    item.querySelector('svg circle').style.fill = 'var(--success-500)';
+                } else {
+                    item.classList.remove('met');
+                    item.querySelector('svg circle').style.fill = 'transparent';
+                }
+            });
+
+            // Calculate strength
+            const metCount = Object.values(requirements).filter(Boolean).length;
+            const strengthFill = document.querySelector('.strength-fill');
+            strengthFill.dataset.strength = metCount;
+            strengthFill.style.width = `${(metCount / 5) * 100}%`;
+
+            const strengthColors = ['#ef4444', '#f59e0b', '#eab308', '#10b981', '#06b6d4'];
+            strengthFill.style.backgroundColor = strengthColors[metCount - 1] || '#6b7280';
+        });
+
+        // Disable Two-Factor
+        document.getElementById('disableTwoFactor')?.addEventListener('click', () => {
+            if (confirm('確定要停用兩步驟驗證嗎？這會降低您的帳號安全性。')) {
+                alert('兩步驟驗證已停用');
+            }
+        });
+
+        // Logout All Devices
+        document.querySelector('.activity-actions .btn-outline-danger')?.addEventListener('click', () => {
+            if (confirm('確定要登出所有裝置嗎？您需要重新登入。')) {
+                alert('已登出所有裝置');
+            }
+        });
+
+        // Revoke Individual Session
+        document.querySelectorAll('.activity-item .btn-ghost').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const item = e.target.closest('.activity-item');
+                const device = item.querySelector('.activity-device').textContent;
+                if (confirm(`確定要登出 ${device} 嗎？`)) {
+                    item.style.opacity = '0';
+                    setTimeout(() => item.remove(), 300);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

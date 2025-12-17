@@ -3,12 +3,16 @@
  * 主題切換系統（淺色/深色）
  */
 
+import { refreshIcons } from './lucide-icons.js';
+
 const THEME_KEY = 'nexusai-theme';
 const THEMES = {
   LIGHT: 'light',
   DARK: 'dark',
   SYSTEM: 'system',
 };
+
+let isThemeClickDelegated = false;
 
 // 取得系統主題偏好
 function getSystemTheme() {
@@ -82,15 +86,26 @@ function initTheme() {
     }
   });
 
-  // 綁定主題切換按鈕
-  document.querySelectorAll('[data-theme-toggle]').forEach((btn) => {
-    btn.addEventListener('click', () => {
+  // 使用事件委派，確保動態插入的按鈕也會生效
+  if (!isThemeClickDelegated) {
+    document.addEventListener('click', (e) => {
+      const btn = e.target?.closest?.('[data-theme-toggle]');
+      if (!btn) return;
+
       const newTheme = toggleTheme();
       updateThemeToggleUI(newTheme);
     });
-  });
+    isThemeClickDelegated = true;
+  }
 
   // 初始化切換按鈕 UI
+  updateThemeToggleUI(getActiveTheme());
+}
+
+/**
+ * 重新同步主題相關控制項（給動態插入 DOM 使用）
+ */
+function refreshThemeControls() {
   updateThemeToggleUI(getActiveTheme());
 }
 
@@ -107,9 +122,7 @@ function updateThemeToggleUI(theme) {
   });
 
   // 重新渲染 Lucide Icons（如果有使用）
-  if (window.lucide) {
-    window.lucide.createIcons();
-  }
+  refreshIcons().catch(err => console.warn('Failed to refresh icons:', err));
 }
 
 // 導出
@@ -120,4 +133,5 @@ export {
   setTheme,
   getActiveTheme,
   getSavedTheme,
+  refreshThemeControls,
 };

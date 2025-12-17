@@ -4,6 +4,8 @@
  */
 
 import { t } from '../i18n.js';
+import { throttle, escapeHtml } from '../utils.js';
+import { initIcons, refreshIcons } from '../lucide-icons.js';
 
 // 導航連結配置
 const navLinks = [
@@ -28,13 +30,13 @@ function createNavbarHTML() {
         </a>
 
         <!-- Desktop Navigation -->
-        <ul class="navbar__links hidden-mobile">
+        <ul class="navbar__links">
           ${navLinks
             .map(
               (link) => `
             <li>
-              <a href="${link.href}" class="navbar__link" data-lang="${link.key}">
-                ${t(link.key)}
+              <a href="${escapeHtml(link.href)}" class="navbar__link" data-lang="${escapeHtml(link.key)}">
+                ${escapeHtml(t(link.key))}
               </a>
             </li>
           `
@@ -63,7 +65,7 @@ function createNavbarHTML() {
           </button>
 
           <!-- CTA Button (Desktop) -->
-          <a href="#" class="btn btn--primary hidden-mobile" data-lang="btn.getStarted">
+          <a href="#" class="btn btn--primary navbar__cta" data-lang="btn.getStarted">
             ${t('btn.getStarted')}
           </a>
 
@@ -86,8 +88,8 @@ function createNavbarHTML() {
             .map(
               (link) => `
             <li>
-              <a href="${link.href}" class="navbar__mobile-link" data-lang="${link.key}">
-                ${t(link.key)}
+              <a href="${escapeHtml(link.href)}" class="navbar__mobile-link" data-lang="${escapeHtml(link.key)}">
+                ${escapeHtml(t(link.key))}
               </a>
             </li>
           `
@@ -103,7 +105,7 @@ function createNavbarHTML() {
 }
 
 // 初始化行為
-function initNavbar(container) {
+async function initNavbar(container) {
   const hamburger = container.querySelector('[data-mobile-menu-toggle]');
   const mobileMenu = container.querySelector('[data-mobile-menu]');
 
@@ -117,7 +119,8 @@ function initNavbar(container) {
       const icon = hamburger.querySelector('[data-lucide]');
       if (icon) {
         icon.setAttribute('data-lucide', isOpen ? 'menu' : 'x');
-        if (window.lucide) window.lucide.createIcons();
+        // 重新初始化圖標
+        refreshIcons(container).catch(err => console.warn('Failed to refresh icons:', err));
       }
     });
 
@@ -130,31 +133,22 @@ function initNavbar(container) {
     });
   }
 
-  // 滾動時添加陰影
-  let lastScroll = 0;
-  window.addEventListener('scroll', () => {
-    const navbar = container.querySelector('.navbar');
-    const currentScroll = window.scrollY;
+  // 滾動時添加陰影（使用 throttle 優化效能）
+  const navbar = container.querySelector('.navbar');
+  const handleScroll = throttle(() => {
+    navbar.classList.toggle('navbar--scrolled', window.scrollY > 50);
+  }, 100);
 
-    if (currentScroll > 50) {
-      navbar.classList.add('navbar--scrolled');
-    } else {
-      navbar.classList.remove('navbar--scrolled');
-    }
-
-    lastScroll = currentScroll;
-  });
+  window.addEventListener('scroll', handleScroll, { passive: true });
 
   // 初始化 Lucide Icons
-  if (window.lucide) {
-    window.lucide.createIcons();
-  }
+  await initIcons(container).catch(err => console.warn('Failed to init icons:', err));
 }
 
 // 渲染函數
-export function render(container) {
+export async function render(container) {
   container.innerHTML = createNavbarHTML();
-  initNavbar(container);
+  await initNavbar(container);
 }
 
 // 導出配置

@@ -114,11 +114,11 @@ function initExternalLinks() {
 // DOM Ready 初始化
 document.addEventListener('DOMContentLoaded', async () => {
   // 1. 載入主題系統
-  const { initTheme } = await import('./theme.js');
+  const { initTheme, refreshThemeControls } = await import('./theme.js');
   initTheme();
 
   // 2. 載入語言系統
-  const { initI18n } = await import('./i18n.js');
+  const { initI18n, refreshLanguageControls } = await import('./i18n.js');
   initI18n();
 
   // 3. 載入共用元件
@@ -136,15 +136,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadComponent('#sidebar-container', './components/sidebar.js');
   }
 
-  // 4. 初始化動畫
+  // 3.1 元件載入後同步控制項（動態插入 DOM 的按鈕）
+  refreshLanguageControls();
+  refreshThemeControls();
+
+  // 4. 初始化 Lucide Icons（確保所有元件載入後再初始化）
+  try {
+    const { initIcons } = await import('./lucide-icons.js');
+    await initIcons();
+  } catch (error) {
+    console.warn('Failed to initialize Lucide Icons:', error);
+  }
+
+  // 5. 初始化動畫
   initScrollAnimations();
   initCounters();
 
-  // 5. 初始化連結處理
+  // 6. 初始化連結處理
   initSmoothScroll();
   initExternalLinks();
 
-  // 6. 移除載入遮罩
+  // 7. 移除載入遮罩
   document.body.classList.add('loaded');
 
   console.log('NexusAI Glassmorphism 2026 initialized');

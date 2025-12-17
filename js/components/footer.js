@@ -4,42 +4,44 @@
  */
 
 import { t } from '../i18n.js';
+import { escapeHtml } from '../utils.js';
+import { initIcons } from '../lucide-icons.js';
 
-// 頁腳連結配置
+// 頁腳連結配置（使用 i18n keys，避免硬編碼文字）
 const footerLinks = {
   product: {
-    title: '產品',
+    titleKey: 'footer.links.product',
     links: [
-      { label: '功能', href: '#features' },
-      { label: '定價', href: '#pricing' },
-      { label: '整合', href: '#' },
-      { label: '更新日誌', href: '#' },
+      { key: 'footer.product.features', href: '#features' },
+      { key: 'footer.product.pricing', href: '#pricing' },
+      { key: 'footer.product.integrations', href: '#' },
+      { key: 'footer.product.changelog', href: '#' },
     ],
   },
   company: {
-    title: '公司',
+    titleKey: 'footer.links.company',
     links: [
-      { label: '關於我們', href: '#about' },
-      { label: '部落格', href: '#' },
-      { label: '職缺', href: '#' },
-      { label: '聯繫我們', href: '#contact' },
+      { key: 'footer.company.about', href: '#about' },
+      { key: 'footer.company.blog', href: '#' },
+      { key: 'footer.company.careers', href: '#' },
+      { key: 'footer.company.contact', href: '#contact' },
     ],
   },
   resources: {
-    title: '資源',
+    titleKey: 'footer.links.resources',
     links: [
-      { label: '文檔', href: '#' },
-      { label: 'API 參考', href: '#' },
-      { label: '社群', href: '#' },
-      { label: '支援', href: '#' },
+      { key: 'footer.resources.docs', href: '#' },
+      { key: 'footer.resources.api', href: '#' },
+      { key: 'footer.resources.community', href: '#' },
+      { key: 'footer.resources.support', href: '#' },
     ],
   },
   legal: {
-    title: '法律',
+    titleKey: 'footer.links.legal',
     links: [
-      { label: '隱私政策', href: '#' },
-      { label: '服務條款', href: '#' },
-      { label: 'Cookie 政策', href: '#' },
+      { key: 'footer.legal.privacy', href: '#' },
+      { key: 'footer.legal.terms', href: '#' },
+      { key: 'footer.legal.cookies', href: '#' },
     ],
   },
 };
@@ -58,7 +60,7 @@ function createFooterHTML() {
     <footer class="footer">
       <div class="container">
         <!-- Top Section -->
-        <div class="footer__top">
+        <div class="footer__grid">
           <!-- Brand -->
           <div class="footer__brand">
             <a href="/" class="footer__logo">
@@ -67,8 +69,8 @@ function createFooterHTML() {
               </span>
               <span class="footer__logo-text">NexusAI</span>
             </a>
-            <p class="footer__tagline">
-              打造未來的數位體驗
+            <p class="footer__desc" data-lang="footer.tagline">
+              ${t('footer.tagline')}
             </p>
 
             <!-- Social Links -->
@@ -77,13 +79,13 @@ function createFooterHTML() {
                 .map(
                   (social) => `
                 <a
-                  href="${social.href}"
+                  href="${escapeHtml(social.href)}"
                   class="footer__social-link glass-btn"
-                  aria-label="${social.name}"
+                  aria-label="${escapeHtml(social.name)}"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <i data-lucide="${social.icon}"></i>
+                  <i data-lucide="${escapeHtml(social.icon)}"></i>
                 </a>
               `
                 )
@@ -92,28 +94,26 @@ function createFooterHTML() {
           </div>
 
           <!-- Links -->
-          <div class="footer__links">
-            ${Object.entries(footerLinks)
-              .map(
-                ([key, section]) => `
-              <div class="footer__column">
-                <h4 class="footer__column-title">${section.title}</h4>
-                <ul class="footer__column-links">
-                  ${section.links
-                    .map(
-                      (link) => `
-                    <li>
-                      <a href="${link.href}" class="footer__link">${link.label}</a>
-                    </li>
-                  `
-                    )
-                    .join('')}
-                </ul>
-              </div>
-            `
-              )
-              .join('')}
-          </div>
+          ${Object.entries(footerLinks)
+            .map(
+              ([key, section]) => `
+            <div class="footer__column">
+              <h4 data-lang="${escapeHtml(section.titleKey)}">${escapeHtml(t(section.titleKey))}</h4>
+              <ul class="footer__links">
+                ${section.links
+                  .map(
+                    (link) => `
+                  <li>
+                    <a href="${escapeHtml(link.href)}" data-lang="${escapeHtml(link.key)}">${escapeHtml(t(link.key))}</a>
+                  </li>
+                `
+                  )
+                  .join('')}
+              </ul>
+            </div>
+          `
+            )
+            .join('')}
         </div>
 
         <!-- Bottom Section -->
@@ -140,7 +140,7 @@ function createFooterHTML() {
               aria-label="切換主題"
             >
               <i data-lucide="moon" data-theme-icon></i>
-              <span>主題</span>
+              <span data-lang="footer.settings.theme">${t('footer.settings.theme')}</span>
             </button>
           </div>
         </div>
@@ -150,13 +150,11 @@ function createFooterHTML() {
 }
 
 // 渲染函數
-export function render(container) {
+export async function render(container) {
   container.innerHTML = createFooterHTML();
 
   // 初始化 Lucide Icons
-  if (window.lucide) {
-    window.lucide.createIcons();
-  }
+  await initIcons(container).catch(err => console.warn('Failed to create icons:', err));
 }
 
 // 導出配置

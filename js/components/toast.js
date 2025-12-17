@@ -3,6 +3,8 @@
  * 全域通知元件
  */
 
+import { escapeHtml, initIcons } from '../utils.js';
+
 // Toast 類型
 const TOAST_TYPES = {
   SUCCESS: 'success',
@@ -53,8 +55,8 @@ function createToastElement({ type, title, message, closable = true }) {
       <i data-lucide="${TOAST_ICONS[type]}"></i>
     </div>
     <div class="toast__content">
-      ${title ? `<div class="toast__title">${title}</div>` : ''}
-      ${message ? `<div class="toast__message">${message}</div>` : ''}
+      ${title ? `<div class="toast__title">${escapeHtml(title)}</div>` : ''}
+      ${message ? `<div class="toast__message">${escapeHtml(message)}</div>` : ''}
     </div>
     ${
       closable
@@ -73,10 +75,19 @@ function createToastElement({ type, title, message, closable = true }) {
 
 // 移除 Toast
 function removeToast(toast) {
+  if (!toast || toast.dataset.toastRemoving === '1') return;
+  toast.dataset.toastRemoving = '1';
+
   toast.classList.add('animate-out');
-  toast.addEventListener('animationend', () => {
-    toast.remove();
-  });
+
+  // Always remove after a short delay (match fadeOutRight duration),
+  // so removal never depends on animationend.
+  const forceRemove = () => {
+    if (toast && toast.parentNode) toast.remove();
+  };
+
+  toast.addEventListener('animationend', forceRemove, { once: true });
+  setTimeout(forceRemove, 350);
 }
 
 // 顯示 Toast
@@ -95,9 +106,7 @@ function showToast(options) {
   container.appendChild(toast);
 
   // 初始化 Lucide Icons
-  if (window.lucide) {
-    window.lucide.createIcons({ icons: toast });
-  }
+  initIcons(toast);
 
   // 關閉按鈕
   const closeBtn = toast.querySelector('.toast__close');

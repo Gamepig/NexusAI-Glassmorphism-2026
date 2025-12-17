@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NexusAI Projects - 專案管理">
+  <meta name="theme-color" content="#FFFFFF">
+
+  <title>專案列表 - NexusAI</title>
+
+  <!-- Head Loader（集中管理核心 CSS/Fonts/版本號） -->
+  <script src="../js/head-loader.js"></script>
+</head>
+<body>
+  <!-- Skip Link (無障礙) -->
+  <a href="#main-content" class="skip-link">跳至主要內容</a>
+
+  <!-- Sidebar Layout -->
+  <div class="sidebar-layout">
+    <!-- Sidebar Container -->
+    <nav id="sidebar-container" class="sidebar-layout__sidebar" aria-label="側邊導航"></nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="sidebar-layout__main">
+      <!-- Page Header -->
+      <div class="page-header mb-8">
+        <div class="flex items-center justify-between flex-wrap gap-4">
+          <div>
+            <h1 class="h3" data-lang="page.projects">專案列表</h1>
+            <p class="text-secondary mt-2" data-lang="projects.subtitle">管理您的所有專案，追蹤進度與協作。</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <!-- New Project Button -->
+            <button class="btn btn--primary" data-new-project>
+              <i data-lucide="plus"></i>
+              <span data-lang="projects.btn.newProject">新建專案</span>
+            </button>
+            <!-- Language Toggle -->
+            <button class="btn btn--secondary btn--sm" data-lang-toggle aria-label="切換語言">
+              <span data-lang-display>中</span>
+            </button>
+            <!-- Theme Toggle -->
+            <button class="btn btn--secondary btn--sm" data-theme-toggle aria-label="切換主題">
+              <i data-lucide="moon" data-theme-icon></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search and Filter Section -->
+      <section class="mb-6">
+        <div class="glass-card p-4">
+          <div class="flex items-center gap-4 flex-wrap">
+            <!-- Search Input -->
+            <div class="flex-1" style="min-width: 250px;">
+              <div class="form-input-wrapper">
+                <i data-lucide="search" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--text-secondary);"></i>
+                <input
+                  type="text"
+                  class="form-input"
+                  placeholder="搜尋專案..."
+                  data-lang-placeholder="projects.searchPlaceholder"
+                  style="padding-left: 40px;"
+                  data-search-input
+                >
+              </div>
+            </div>
+
+            <!-- Filter Dropdown -->
+            <select class="form-input" style="width: auto; min-width: 150px;" data-status-filter>
+              <option value="" data-lang="projects.filter.allStatus">所有狀態</option>
+              <option value="active" data-lang="projects.status.active">進行中</option>
+              <option value="completed" data-lang="projects.status.completed">已完成</option>
+              <option value="archived" data-lang="projects.status.archived">已封存</option>
+            </select>
+
+            <!-- Sort Dropdown -->
+            <select class="form-input" style="width: auto; min-width: 150px;" data-sort>
+              <option value="recent" data-lang="projects.sort.recent">最近更新</option>
+              <option value="name" data-lang="projects.sort.name">專案名稱</option>
+              <option value="progress" data-lang="projects.sort.progress">進度</option>
+            </select>
+
+            <!-- View Toggle -->
+            <div class="flex gap-2">
+              <button class="btn btn--secondary btn--sm active" data-view="grid" aria-label="網格視圖" data-lang-aria="projects.view.grid">
+                <i data-lucide="grid"></i>
+              </button>
+              <button class="btn btn--secondary btn--sm" data-view="list" aria-label="列表視圖" data-lang-aria="projects.view.list">
+                <i data-lucide="list"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects Grid -->
+      <section>
+        <div class="card-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));">
+
+          <!-- Project Card 1 -->
+          <div class="glass-card project-card">
+            <div class="card__header">
+              <div class="flex items-start justify-between">
+                <div>
+                  <h3 class="h6 mb-1" data-lang="projects.card1.title">NexusAI 儀表板</h3>
+                  <span class="badge badge--primary" data-lang="projects.status.active">進行中</span>
+                </div>
+                <button class="btn btn--ghost btn--sm" aria-label="更多選項" data-lang-aria="common.moreOptions">
+                  <i data-lucide="more-vertical"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="card__body">
+              <p class="text-sm text-secondary mb-4" data-lang="projects.card1.desc">構建全新的企業級儀表板系統，整合數據分析與視覺化功能。</p>
+
+              <!-- Progress Bar -->
+              <div class="mb-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm text-secondary" data-lang="projects.progress">進度</span>
+                  <span class="text-sm font-medium">75%</span>
+                </div>
+                <div class="progress">
+                  <div class="progress__bar" style="width: 75%;"></div>
+                </div>
+              </div>
+
+              <!-- Team Members -->
+              <div class="flex items-center justify-between">
+                <div class="flex -space-x-2">
+                  <div class="avatar avatar--sm" style="background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; border: 2px solid white;">J</div>
+                  <div class="avatar avatar--sm" style="background: linear-gradient(135deg, var(--color-secondary), var(--color-success)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; border: 2px solid white;">A</div>
+                  <div class="avatar avatar--sm" style="background: linear-gradient(135deg, var(--color-success), var(--color-warning)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; border: 2px solid white;">B</div>
+                  <div class="avatar avatar--sm" style="background: rgba(168, 85, 247, 0.2); display: flex; align-items: center; justify-content: center; color: var(--color-primary); font-weight: 600; border: 2px solid white; font-size: 12px;">+3</div>
+                </div>
+                <span class="text-xs text-muted" data-lang="projects.updated.2h">2 小時前更新</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Card 2 -->
+          <div class="glass-card project-card">
+            <div class="card__header">
+              <div class="flex items-start justify-between">
+                <div>
+                  <h3 class="h6 mb-1" data-lang="projects.card2.title">API 閘道器</h3>
+                  <span class="badge badge--success" data-lang="projects.status.completed">已完成</span>
+                </div>
+                <button class="btn btn--ghost btn--sm" aria-label="更多選項" data-lang-aria="common.moreOptions">
+                  <i data-lucide="more-vertical"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="card__body">
+              <p class="text-sm text-secondary mb-4" data-lang="projects.card2.desc">微服務架構的 API 閘道器，支援認證、限流與監控功能。</p>
+
+              <!-- Progress Bar -->
+              <div class="mb-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm text-secondary" data-lang="projects.progress">進度</span>
+                  <span class="text-sm font-medium">100%</span>
+                </div>
+                <div class="progress">
+                  <div class="progress__bar" style="width: 100%; background: var(--color-success);"></div>
+                </div>
+              </div>
+
+              <!-- Team Members -->
+              <div class="flex items-center justify-between">
+                <div class="flex -space-x-2">
+                  <div class="avatar avatar--sm" style="background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; border: 2px solid white;">C</div>
+                  <div class="avatar avatar--sm" style="background: linear-gradient(135deg, var(--color-secondary), var(--color-success)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; border: 2px solid white;">D</div>
+                </div>
+                <span class="text-xs text-muted" data-lang="projects.updated.1d">1 天前更新</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Card 3 -->
+          <div class="glass-card project-card">
+            <div class="card__header">
+              <div class="flex items-start justify-between">
+                <div>
+                  <h3 class="h6 mb-1" data-lang="projects.card3.title">行動 App 改版</h3>
+                  <span class="badge badge--primary" data-lang="projects.status.active">進行中</span>
+                </div>
+                <button class="btn btn--ghost btn--sm" aria-label="更多選項" data-lang-aria="common.moreOptions">
+                  <i data-lucide="more-vertical"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="card__body">
+              <p class="text-sm text-secondary mb-4" data-lang="projects.card3.desc">重新設計移動應用程式介面，提升使用者體驗與視覺效果。</p>
+
+              <!-- Progress Bar -->
+              <div class="mb-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm text-secondary" data-lang="projects.progress">進度</span>
+                  <span class="text-sm font-medium">42%</span>
+                </div>
+                <div class="progress">
+                  <div class="progress__bar" style="width: 42%;"></div>
+                </div>
+              </div>
+
+              <!-- Team Members -->
+              <div class="flex items-center justify-between">
+                <div class="flex -space-x-2">
+                  <div class="avatar avatar--sm" style="background: linear-gradient(135deg, var(--color-warning), var(--color-error)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; border: 2px solid white;">E</div>
+                  <div class="avatar avatar--sm" style="background: linear-gradient(135deg, var(--color-success), var(--color-primary)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; border: 2px solid white;">F</div>
+                  <div class="avatar avatar--sm" style="background: linear-gradient(135deg, var(--color-error), var(--color-warning)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; border: 2px solid white;">G</div>
+                </div>
+                <span class="text-xs text-muted" data-lang="projects.updated.5h">5 小時前更新</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Card 4 -->
+          <div class="glass-card project-card">
+            <div class="card__header">
+              <div class="flex items-start justify-between">
+                <div>
+                  <h3 class="h6 mb-1" data-lang="projects.card4.title">電商平台</h3>
+                  <span class="badge badge--warning" data-lang="projects.status.planned">計劃中</span>
+                </div>
+                <button class="btn btn--ghost btn--sm" aria-label="更多選項" data-lang-aria="common.moreOptions">
+                  <i data-lucide="more-vertical"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="card__body">
+              <p class="text-sm text-secondary mb-4" data-lang="projects.card4.desc">全功能電商平台開發，包含購物車、支付整合及訂單管理。</p>
+
+              <!-- Progress Bar -->
+              <div class="mb-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm text-secondary" data-lang="projects.progress">進度</span>
+                  <span class="text-sm font-medium">18%</span>
+                </div>
+                <div class="progress">
+                  <div class="progress__bar" style="width: 18%;"></div>
+                </div>
+              </div>
+
+              <!-- Team Members -->
+              <div class="flex items-center justify-between">
+                <div class="flex -space-x-2">
+                  <div class="avatar avatar--sm" style="background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; border: 2px solid white;">H</div>
+                  <div class="avatar avatar--sm" style="background: linear-gradient(135deg, var(--color-secondary), var(--color-success)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; border: 2px solid white;">I</div>
+                </div>
+                <span class="text-xs text-muted" data-lang="projects.updated.3d">3 天前更新</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Card 5 -->
+          <div class="glass-card project-card">
+            <div class="card__header">
+              <div class="flex items-start justify-between">
+                <div>
+                  <h3 class="h6 mb-1" data-lang="projects.card5.title">數據分析套件</h3>
+                  <span class="badge badge--primary" data-lang="projects.status.active">進行中</span>
+                </div>
+                <button class="btn btn--ghost btn--sm" aria-label="更多選項" data-lang-aria="common.moreOptions">
+                  <i data-lucide="more-vertical"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="card__body">
+              <p class="text-sm text-secondary mb-4" data-lang="projects.card5.desc">企業級數據分析工具套件，提供即時數據處理與視覺化。</p>
+
+              <!-- Progress Bar -->
+              <div class="mb-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm text-secondary" data-lang="projects.progress">進度</span>
+                  <span class="text-sm font-medium">63%</span>
+                </div>
+                <div class="progress">
+                  <div class="progress__bar" style="width: 63%;"></div>
+                </div>
+              </div>
+
+              <!-- Team Members -->
+              <div class="flex items-center justify-between">
+                <div class="flex -space-x-2">
+                  <div class="avatar avatar--sm" style="background: linear-gradient(135deg, var(--color-success), var(--color-primary)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; border: 2px solid white;">J</div>
+                  <div class="avatar avatar--sm" style="background: linear-gradient(135deg, var(--color-warning), var(--color-error)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; border: 2px solid white;">K</div>
+                  <div class="avatar avatar--sm" style="background: rgba(168, 85, 247, 0.2); display: flex; align-items: center; justify-content: center; color: var(--color-primary); font-weight: 600; border: 2px solid white; font-size: 12px;">+2</div>
+                </div>
+                <span class="text-xs text-muted" data-lang="projects.updated.1h">1 小時前更新</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Card 6 -->
+          <div class="glass-card project-card">
+            <div class="card__header">
+              <div class="flex items-start justify-between">
+                <div>
+                  <h3 class="h6 mb-1" data-lang="projects.card6.title">雲端基礎架構</h3>
+                  <span class="badge badge--primary" data-lang="projects.status.active">進行中</span>
+                </div>
+                <button class="btn btn--ghost btn--sm" aria-label="更多選項" data-lang-aria="common.moreOptions">
+                  <i data-lucide="more-vertical"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="card__body">
+              <p class="text-sm text-secondary mb-4" data-lang="projects.card6.desc">雲端基礎架構建置與優化，包含自動化部署與監控系統。</p>
+
+              <!-- Progress Bar -->
+              <div class="mb-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm text-secondary" data-lang="projects.progress">進度</span>
+                  <span class="text-sm font-medium">55%</span>
+                </div>
+                <div class="progress">
+                  <div class="progress__bar" style="width: 55%;"></div>
+                </div>
+              </div>
+
+              <!-- Team Members -->
+              <div class="flex items-center justify-between">
+                <div class="flex -space-x-2">
+                  <div class="avatar avatar--sm" style="background: linear-gradient(135deg, var(--color-error), var(--color-warning)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; border: 2px solid white;">L</div>
+                  <div class="avatar avatar--sm" style="background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; border: 2px solid white;">M</div>
+                  <div class="avatar avatar--sm" style="background: linear-gradient(135deg, var(--color-secondary), var(--color-success)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; border: 2px solid white;">N</div>
+                </div>
+                <span class="text-xs text-muted" data-lang="projects.updated.4h">4 小時前更新</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Main JavaScript -->
+  <script type="module">
+    import { initTheme } from '../js/theme.js';
+    import { initI18n, t } from '../js/i18n.js';
+    import { render as renderSidebar } from '../js/components/sidebar.js';
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', async () => {
+      // 初始化主題系統
+      initTheme();
+
+      // 初始化語言系統
+      initI18n();
+
+      // 載入側邊欄
+      const sidebarContainer = document.getElementById('sidebar-container');
+      if (sidebarContainer) {
+        renderSidebar(sidebarContainer);
+      }
+
+      // 初始化 Lucide Icons
+      const { initIcons } = await import('../js/lucide-icons.js');
+      await initIcons();
+
+      // 初始化專案頁面功能
+      initProjectsPage();
+    });
+
+    function initProjectsPage() {
+      const grid = document.querySelector('.card-grid');
+      if (!grid) return;
+
+      const searchInput = document.querySelector('[data-search-input]');
+      const statusSelect = document.querySelector('[data-status-filter]');
+      const sortSelect = document.querySelector('[data-sort]');
+
+      function getCardStatus(card) {
+        const badge = card.querySelector('[data-lang^="projects.status."]');
+        const key = badge?.getAttribute('data-lang') || '';
+        return key.split('.').pop() || '';
+      }
+
+      function getUpdatedAgeHours(card) {
+        const el = card.querySelector('[data-lang^="projects.updated."]');
+        const key = el?.getAttribute('data-lang') || '';
+        const last = key.split('.').pop() || '';
+        const m = last.match(/^(\d+)([hd])$/);
+        if (!m) return Number.POSITIVE_INFINITY;
+        const value = Number(m[1]);
+        const unit = m[2];
+        if (!Number.isFinite(value)) return Number.POSITIVE_INFINITY;
+        return unit === 'd' ? value * 24 : value;
+      }
+
+      function getProgressValue(card) {
+        const percentText = card.querySelector('.mb-4 .flex.items-center.justify-between .text-sm.font-medium')?.textContent || '';
+        const m = percentText.match(/(\d+)\s*%/);
+        if (m) return Number(m[1]);
+        const bar = card.querySelector('.progress__bar');
+        const width = bar?.style?.width || '';
+        const m2 = width.match(/(\d+)\s*%/);
+        return m2 ? Number(m2[1]) : 0;
+      }
+
+      function matchesSearch(card, term) {
+        if (!term) return true;
+        const title = card.querySelector('.h6')?.textContent?.toLowerCase() || '';
+        const desc = card.querySelector('.text-secondary')?.textContent?.toLowerCase() || '';
+        return title.includes(term) || desc.includes(term);
+      }
+
+      function applyFiltersAndSort() {
+        const term = (searchInput?.value || '').toLowerCase().trim();
+        const status = statusSelect?.value || '';
+        const sort = sortSelect?.value || 'recent';
+
+        const cards = Array.from(grid.querySelectorAll('.project-card'));
+
+        cards.forEach((card) => {
+          const okSearch = matchesSearch(card, term);
+          const cardStatus = getCardStatus(card);
+          const okStatus = !status || cardStatus === status;
+          card.style.display = okSearch && okStatus ? '' : 'none';
+        });
+
+        const sorted = cards.slice().sort((a, b) => {
+          if (sort === 'name') {
+            const an = a.querySelector('.h6')?.textContent?.trim() || '';
+            const bn = b.querySelector('.h6')?.textContent?.trim() || '';
+            return an.localeCompare(bn, undefined, { sensitivity: 'base' });
+          }
+
+          if (sort === 'progress') {
+            const ap = getProgressValue(a);
+            const bp = getProgressValue(b);
+            return bp - ap;
+          }
+
+          // recent (default): smaller ageHours first
+          const aa = getUpdatedAgeHours(a);
+          const ba = getUpdatedAgeHours(b);
+          return aa - ba;
+        });
+
+        sorted.forEach((card) => grid.appendChild(card));
+      }
+
+      // 搜尋 / 篩選 / 排序
+      searchInput?.addEventListener('input', applyFiltersAndSort);
+      statusSelect?.addEventListener('change', applyFiltersAndSort);
+      sortSelect?.addEventListener('change', applyFiltersAndSort);
+      applyFiltersAndSort();
+
+      // 視圖切換
+      const viewButtons = document.querySelectorAll('[data-view]');
+      viewButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          viewButtons.forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+
+          const view = button.dataset.view;
+          if (view === 'list') {
+            grid.style.gridTemplateColumns = '1fr';
+          } else {
+            grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(320px, 1fr))';
+          }
+        });
+      });
+
+      // 新建專案按鈕
+      const newProjectBtn = document.querySelector('[data-new-project]');
+      if (newProjectBtn) {
+        newProjectBtn.addEventListener('click', () => {
+          alert(t('projects.alert.newProjectWip'));
+        });
+      }
+    }
+  </script>
+
+  <style>
+    /* 頁面特定樣式 */
+    .page-header {
+      padding-bottom: var(--space-6);
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .form-input-wrapper {
+      position: relative;
+    }
+
+    .project-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn--ghost {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+    }
+
+    .btn--ghost:hover {
+      background: rgba(0, 0, 0, 0.05);
+      color: var(--text-primary);
+    }
+
+    /* 響應式調整 */
+    @media (max-width: 768px) {
+      .card-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
+</body>
+</html>

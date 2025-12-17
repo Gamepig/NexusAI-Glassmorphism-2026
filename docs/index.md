@@ -11,6 +11,7 @@
 | PLAN | [開發計劃.md](./開發計劃.md) | 21 步驟開發流程、目錄結構、設計令牌 |
 | LIST | [功能清單.md](./功能清單.md) | 13 頁功能、組件功能、工具函數 |
 | GUIDE | [設計指南.md](./設計指南.md) | Glassmorphism 原則、色彩/字體/間距系統 |
+| GUIDE | [Glassmorphism-設計指南.md](./Glassmorphism-設計指南.md) | Glassmorphism 可用性優先規範、背景策略、WCAG、回退方案、檢查清單、靈感落地 |
 
 ## 快速查詢
 
@@ -26,6 +27,7 @@
 | JS Showcase | [功能清單.md](./功能清單.md) | 5. JS Showcase（11 Tab）|
 | 工具函數 | [功能清單.md](./功能清單.md) | 12. 工具函數庫 |
 | 玻璃效果 | [設計指南.md](./設計指南.md) | Glassmorphism 設計原則 |
+| 玻璃效果（可用性優先） | [Glassmorphism-設計指南.md](./Glassmorphism-設計指南.md) | 1-9（背景策略、對比/WCAG、回退、效能、檢查清單、靈感落地） |
 | 色彩系統 | [設計指南.md](./設計指南.md) | 色彩系統 |
 | 字體系統 | [設計指南.md](./設計指南.md) | 字體系統 |
 | 動效系統 | [設計指南.md](./設計指南.md) | 動效系統 |
@@ -35,6 +37,7 @@
 
 **設計相關**
 - 設計原則 → [設計指南.md](./設計指南.md)
+- Glassmorphism（可用性優先）→ [Glassmorphism-設計指南.md](./Glassmorphism-設計指南.md)
 - 色彩/字體 → [設計指南.md](./設計指南.md)
 
 **開發相關**

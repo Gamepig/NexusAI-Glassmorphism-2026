@@ -5,16 +5,8 @@
 
 /* ========================================
    字體載入
-   ======================================== */
-
-/* Inter - 西文字體 */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-/* Noto Sans TC - 中文字體 */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap');
-
-/* JetBrains Mono - 等寬字體 */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+   ========================================
+   Fonts 由 `js/head-loader.js` 統一注入，避免每頁/每個 CSS 重複載入。 */
 
 /* ========================================
    基礎設定

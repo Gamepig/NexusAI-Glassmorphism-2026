@@ -3,6 +3,8 @@
  * 全域對話框元件
  */
 
+import { escapeHtml, initIcons } from '../utils.js';
+
 // Modal 配置
 const MODAL_CONFIG = {
   closeOnBackdrop: true,
@@ -31,7 +33,7 @@ function createModalElement({ id, title, content, footer, size = 'md', closable 
           title || closable
             ? `
           <div class="modal__header">
-            ${title ? `<h3 class="modal__title" id="${id}-title">${title}</h3>` : ''}
+            ${title ? `<h3 class="modal__title" id="${id}-title">${escapeHtml(title)}</h3>` : ''}
             ${
               closable
                 ? `
@@ -86,9 +88,7 @@ function openModal(modal) {
   document.body.style.overflow = 'hidden';
 
   // 初始化 Lucide Icons
-  if (window.lucide) {
-    window.lucide.createIcons();
-  }
+  initIcons(modal);
 
   // 聚焦到第一個可聚焦元素
   setTimeout(() => {
@@ -252,10 +252,10 @@ function confirm({ title = '確認', message, confirmText = '確認', cancelText
   return new Promise((resolve) => {
     const modal = createModal({
       title,
-      content: `<p>${message}</p>`,
+      content: `<p>${escapeHtml(message)}</p>`,
       footer: `
-        <button class="btn btn--secondary" data-modal-close>${cancelText}</button>
-        <button class="btn btn--primary" data-modal-confirm>${confirmText}</button>
+        <button class="btn btn--secondary" data-modal-close>${escapeHtml(cancelText)}</button>
+        <button class="btn btn--primary" data-modal-confirm>${escapeHtml(confirmText)}</button>
       `,
       size: 'sm',
       onClose: () => {
@@ -276,8 +276,8 @@ function alert({ title = '提示', message, confirmText = '確定' }) {
   return new Promise((resolve) => {
     const modal = createModal({
       title,
-      content: `<p>${message}</p>`,
-      footer: `<button class="btn btn--primary" data-modal-close>${confirmText}</button>`,
+      content: `<p>${escapeHtml(message)}</p>`,
+      footer: `<button class="btn btn--primary" data-modal-close>${escapeHtml(confirmText)}</button>`,
       size: 'sm',
       onClose: () => {
         modal.remove();

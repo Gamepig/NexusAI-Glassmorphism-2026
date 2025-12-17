@@ -5,12 +5,94 @@
 
 /* ========================================
    斷點定義
-   sm: 640px
-   md: 768px
-   lg: 1024px
-   xl: 1280px
-   2xl: 1536px
+   xs: 320px (小型手機)
+   sm: 480px (大型手機)
+   md: 768px (平板)
+   lg: 1024px (小型桌機)
+   xl: 1280px (桌機)
+   2xl: 1536px (大型桌機)
    ======================================== */
+
+/* ========================================
+   無障礙 - Skip Link
+   ======================================== */
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-primary);
+  color: white;
+  font-weight: var(--font-medium);
+  border-radius: var(--radius-md);
+  z-index: 9999;
+  text-decoration: none;
+  transition: top var(--duration-200) var(--ease-smooth);
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+}
+
+/* ========================================
+   焦點樣式（無障礙）
+   ======================================== */
+
+/* 可見焦點指示器 */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* 移除預設 outline（僅限有自訂焦點樣式時） */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* 高對比模式 */
+@media (prefers-contrast: high) {
+  .glass-card,
+  .glass-btn,
+  .glass-nav,
+  .glass-sidebar {
+    border-width: 2px;
+    border-color: var(--text-primary);
+  }
+
+  .btn--primary {
+    background: var(--text-primary);
+    color: var(--bg-primary);
+  }
+}
+
+/* ========================================
+   Reduced Motion（減少動畫偏好）
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .float,
+  .spin,
+  .bounce,
+  .pulse {
+    animation: none !important;
+  }
+
+  .hover-lift:hover,
+  .hover-scale:hover,
+  .hover-bounce:hover {
+    transform: none !important;
+  }
+}
 
 /* ========================================
    顯示/隱藏工具類
@@ -163,6 +245,181 @@
   .lg\:w-1\/2 { width: 50%; }
   .lg\:w-1\/3 { width: 33.333333%; }
   .lg\:w-1\/4 { width: 25%; }
+}
+
+/* ========================================
+   Bento Grid 響應式（手機回退）
+   ======================================== */
+
+/* 手機上取消 span，全部單列 */
+@media (max-width: 767px) {
+  .bento-grid {
+    grid-template-columns: 1fr !important;
+    grid-auto-rows: auto !important;
+  }
+
+  .bento-grid [style*="grid-column: span 2"],
+  .bento-grid [style*="grid-row: span 2"],
+  .bento-grid .bento-item--large,
+  .bento-grid .bento-item--wide {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+  }
+}
+
+/* ========================================
+   Dashboard/內頁響應式
+   ======================================== */
+
+/* 圖表區域手機優化 */
+@media (max-width: 640px) {
+  .card-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .card-grid[style*="minmax(400px"],
+  .card-grid[style*="minmax(350px"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* 側邊欄佈局手機優化 */
+@media (max-width: 1024px) {
+  .sidebar-layout__main {
+    padding: var(--space-4);
+  }
+
+  /* 平板/手機：固定「開啟選單」按鈕在左上角，避免跟著 off-canvas sidebar 一起被移出畫面 */
+  [data-mobile-sidebar-toggle] {
+    display: flex !important;
+    position: fixed !important;
+    top: calc(var(--space-3) + env(safe-area-inset-top, 0px));
+    right: var(--space-3);
+    left: auto;
+    z-index: calc(var(--z-fixed) + 10);
+    transform: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  /* Settings：平板/手機改單欄，避免左側內部導航擠壓內容 */
+  .settings-layout {
+    grid-template-columns: 1fr;
+  }
+
+  /* 內部導航改為三欄按鈕列（較不佔高度，且維持可點擊區域） */
+  .settings-nav .glass-card {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+
+  .settings-nav-item {
+    justify-content: center;
+    padding: var(--space-3);
+  }
+
+  .settings-nav-item svg {
+    display: none;
+  }
+
+  /* Billing：小螢幕讓方案卡與付款卡更好排版 */
+  .plan-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .plan-price {
+    text-align: left;
+  }
+
+  .payment-card {
+    grid-template-columns: 40px 1fr;
+  }
+
+  .payment-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 640px) {
+  .sidebar-layout__main {
+    padding: var(--space-3);
+  }
+
+  /* 頁面標題手機優化 */
+  .page-header > .flex {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+
+  /* 讓語言/主題按鈕永遠在右側且維持橫排 */
+  .page-header > .flex > .flex {
+    align-self: flex-end;
+    justify-content: flex-end;
+  }
+
+  .page-header .h3 {
+    font-size: var(--text-xl);
+  }
+}
+
+/* ========================================
+   Hero 響應式
+   ======================================== */
+
+@media (max-width: 768px) {
+  .hero__shape--1 {
+    width: 150px !important;
+    height: 150px !important;
+  }
+
+  .hero__shape--2 {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  .hero__shape--3 {
+    width: 80px !important;
+    height: 80px !important;
+  }
+}
+
+/* ========================================
+   表格響應式（堆疊式）
+   ======================================== */
+
+@media (max-width: 640px) {
+  .table-stack thead {
+    display: none;
+  }
+
+  .table-stack tbody tr {
+    display: block;
+    margin-bottom: var(--space-4);
+    padding: var(--space-4);
+    background: var(--glass-bg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-default);
+  }
+
+  .table-stack tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--border-muted);
+  }
+
+  .table-stack tbody td::before {
+    content: attr(data-label);
+    font-weight: var(--font-medium);
+    color: var(--text-secondary);
+  }
+
+  .table-stack tbody td:last-child {
+    border-bottom: none;
+  }
 }
 
 /* ========================================

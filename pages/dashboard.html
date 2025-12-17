@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NexusAI Dashboard - 儀表板">
+  <meta name="theme-color" content="#FFFFFF">
+
+  <title>儀表板 - NexusAI</title>
+
+  <!-- Head Loader（集中管理核心 CSS/Fonts/版本號） -->
+  <script src="../js/head-loader.js"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- Skip Link (無障礙) -->
+  <a href="#main-content" class="skip-link">跳至主要內容</a>
+
+  <!-- Sidebar Layout -->
+  <div class="sidebar-layout">
+    <!-- Sidebar Container -->
+    <nav id="sidebar-container" class="sidebar-layout__sidebar" aria-label="側邊導航"></nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="sidebar-layout__main">
+      <!-- Page Header -->
+      <div class="page-header mb-8">
+        <div class="flex items-center justify-between flex-wrap gap-4">
+          <div>
+            <h1 class="h3" data-lang="page.dashboard">儀表板</h1>
+            <p class="text-secondary mt-2" data-lang="dashboard.welcome">歡迎回來！以下是您的業務概覽。</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <!-- Language Toggle -->
+            <button class="btn btn--secondary btn--sm" data-lang-toggle aria-label="切換語言">
+              <span data-lang-display>中</span>
+            </button>
+            <!-- Theme Toggle -->
+            <button class="btn btn--secondary btn--sm" data-theme-toggle aria-label="切換主題">
+              <i data-lucide="moon" data-theme-icon></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI Cards -->
+      <section class="mb-8">
+        <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+          <!-- Total Users -->
+          <div class="glass-card kpi-card">
+            <div class="kpi-card__header">
+              <span class="kpi-card__title" data-lang="kpi.totalUsers">總用戶數</span>
+              <div class="kpi-card__icon">
+                <i data-lucide="users"></i>
+              </div>
+            </div>
+            <div class="kpi-card__value" data-counter="12847">0</div>
+            <div class="kpi-card__trend kpi-card__trend--up">
+              <i data-lucide="trending-up" style="width: 16px; height: 16px;"></i>
+              <span>+12.5%</span>
+              <span data-lang="dashboard.vsLastMonth">較上月</span>
+            </div>
+          </div>
+
+          <!-- Total Revenue -->
+          <div class="glass-card kpi-card">
+            <div class="kpi-card__header">
+              <span class="kpi-card__title" data-lang="kpi.totalRevenue">總營收</span>
+              <div class="kpi-card__icon" style="background: rgba(6, 182, 212, 0.1); color: var(--color-secondary);">
+                <i data-lucide="dollar-sign"></i>
+              </div>
+            </div>
+            <div class="kpi-card__value">$<span data-counter="458920">0</span></div>
+            <div class="kpi-card__trend kpi-card__trend--up">
+              <i data-lucide="trending-up" style="width: 16px; height: 16px;"></i>
+              <span>+8.2%</span>
+              <span data-lang="dashboard.vsLastMonth">較上月</span>
+            </div>
+          </div>
+
+          <!-- Active Users -->
+          <div class="glass-card kpi-card">
+            <div class="kpi-card__header">
+              <span class="kpi-card__title" data-lang="kpi.activeUsers">活躍用戶</span>
+              <div class="kpi-card__icon" style="background: rgba(34, 197, 94, 0.1); color: var(--color-success);">
+                <i data-lucide="activity"></i>
+              </div>
+            </div>
+            <div class="kpi-card__value" data-counter="3429">0</div>
+            <div class="kpi-card__trend kpi-card__trend--up">
+              <i data-lucide="trending-up" style="width: 16px; height: 16px;"></i>
+              <span>+5.7%</span>
+              <span data-lang="dashboard.vsLastMonth">較上月</span>
+            </div>
+          </div>
+
+          <!-- Conversion Rate -->
+          <div class="glass-card kpi-card">
+            <div class="kpi-card__header">
+              <span class="kpi-card__title" data-lang="kpi.conversionRate">轉換率</span>
+              <div class="kpi-card__icon" style="background: rgba(245, 158, 11, 0.1); color: var(--color-warning);">
+                <i data-lucide="percent"></i>
+              </div>
+            </div>
+            <div class="kpi-card__value"><span data-counter="24">0</span>%</div>
+            <div class="kpi-card__trend kpi-card__trend--down">
+              <i data-lucide="trending-down" style="width: 16px; height: 16px;"></i>
+              <span>-2.1%</span>
+              <span data-lang="dashboard.vsLastMonth">較上月</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Charts Section -->
+      <section class="mb-8">
+        <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));">
+          <!-- Revenue Chart -->
+          <div class="glass-card p-6">
+            <div class="flex items-center justify-between mb-6">
+              <h3 class="h5" data-lang="dashboard.chart.revenue">營收趨勢</h3>
+              <select class="form-input" style="width: auto; padding: var(--space-2) var(--space-3); font-size: var(--text-sm);">
+                <option data-lang="dashboard.range.7d">過去 7 天</option>
+                <option selected data-lang="dashboard.range.30d">過去 30 天</option>
+                <option data-lang="dashboard.range.90d">過去 90 天</option>
+              </select>
+            </div>
+            <div style="height: 300px;">
+              <canvas id="revenueChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Sales Chart -->
+          <div class="glass-card p-6">
+            <div class="flex items-center justify-between mb-6">
+              <h3 class="h5" data-lang="dashboard.chart.sales">銷售數據</h3>
+              <div class="flex gap-2">
+                <span class="badge badge--primary" data-lang="dashboard.badge.thisMonth">本月</span>
+                <span class="badge" data-lang="dashboard.badge.lastMonth">上月</span>
+              </div>
+            </div>
+            <div style="height: 300px;">
+              <canvas id="salesChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bottom Section -->
+      <section>
+        <div class="card-grid" style="grid-template-columns: 2fr 1fr;">
+          <!-- Recent Activity -->
+          <div class="glass-card">
+            <div class="card__header flex items-center justify-between">
+              <h3 class="h5" data-lang="dashboard.activity.title">最近活動</h3>
+              <a href="#" class="text-brand text-sm" data-lang="btn.viewAll">查看全部</a>
+            </div>
+            <div class="card__body p-0">
+              <div class="table-container" style="border: none; border-radius: 0;">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th data-lang="dashboard.activity.user">用戶</th>
+                      <th data-lang="dashboard.activity.action">動作</th>
+                      <th data-lang="dashboard.activity.time">時間</th>
+                      <th data-lang="dashboard.activity.status">狀態</th>
+                    </tr>
+                  </thead>
+                  <tbody id="activity-table-body">
+                    <tr>
+                      <td>
+                        <div class="flex items-center gap-3">
+                          <div class="avatar avatar--sm" style="background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">J</div>
+                          <span>John Doe</span>
+                        </div>
+                      </td>
+                      <td data-lang="dashboard.activity.action.createProject">建立新專案</td>
+                      <td class="text-muted" data-lang="dashboard.time.2mAgo">2 分鐘前</td>
+                      <td><span class="badge badge--success" data-lang="common.status.completed">完成</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="flex items-center gap-3">
+                          <div class="avatar avatar--sm" style="background: linear-gradient(135deg, var(--color-secondary), var(--color-success)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">A</div>
+                          <span>Alice Wang</span>
+                        </div>
+                      </td>
+                      <td data-lang="dashboard.activity.action.uploadFile">上傳檔案</td>
+                      <td class="text-muted" data-lang="dashboard.time.15mAgo">15 分鐘前</td>
+                      <td><span class="badge badge--success" data-lang="common.status.completed">完成</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="flex items-center gap-3">
+                          <div class="avatar avatar--sm" style="background: linear-gradient(135deg, var(--color-warning), var(--color-error)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">B</div>
+                          <span>Bob Chen</span>
+                        </div>
+                      </td>
+                      <td data-lang="dashboard.activity.action.updateSettings">更新設定</td>
+                      <td class="text-muted" data-lang="dashboard.time.1hAgo">1 小時前</td>
+                      <td><span class="badge badge--warning" data-lang="common.status.inProgress">處理中</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="flex items-center gap-3">
+                          <div class="avatar avatar--sm" style="background: linear-gradient(135deg, var(--color-success), var(--color-primary)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">C</div>
+                          <span>Carol Lin</span>
+                        </div>
+                      </td>
+                      <td data-lang="dashboard.activity.action.completeTask">完成任務</td>
+                      <td class="text-muted" data-lang="dashboard.time.3hAgo">3 小時前</td>
+                      <td><span class="badge badge--success" data-lang="common.status.completed">完成</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="flex items-center gap-3">
+                          <div class="avatar avatar--sm" style="background: linear-gradient(135deg, var(--color-error), var(--color-warning)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">D</div>
+                          <span>David Lee</span>
+                        </div>
+                      </td>
+                      <td data-lang="dashboard.activity.action.sendReport">發送報告</td>
+                      <td class="text-muted" data-lang="dashboard.time.5hAgo">5 小時前</td>
+                      <td><span class="badge badge--error" data-lang="common.status.failed">失敗</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Market Share -->
+          <div class="glass-card p-6">
+            <h3 class="h5 mb-6" data-lang="dashboard.chart.market">市場份額</h3>
+            <div style="height: 250px;">
+              <canvas id="marketShareChart"></canvas>
+            </div>
+            <div class="mt-4">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                  <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--color-primary);"></div>
+                  <span class="text-sm" data-lang="dashboard.market.productA">產品 A</span>
+                </div>
+                <span class="text-sm font-medium">45%</span>
+              </div>
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                  <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--color-secondary);"></div>
+                  <span class="text-sm" data-lang="dashboard.market.productB">產品 B</span>
+                </div>
+                <span class="text-sm font-medium">30%</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--color-success);"></div>
+                  <span class="text-sm" data-lang="dashboard.market.productC">產品 C</span>
+                </div>
+                <span class="text-sm font-medium">25%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Main JavaScript -->
+  <script type="module">
+    import { initTheme } from '../js/theme.js';
+    import { initI18n, getCurrentLanguage } from '../js/i18n.js';
+    import { render as renderSidebar } from '../js/components/sidebar.js';
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', async () => {
+      // 初始化主題系統
+      initTheme();
+
+      // 初始化語言系統
+      initI18n();
+
+      // 載入側邊欄
+      const sidebarContainer = document.getElementById('sidebar-container');
+      if (sidebarContainer) {
+        renderSidebar(sidebarContainer);
+      }
+
+      // 初始化 Lucide Icons
+      const { initIcons } = await import('../js/lucide-icons.js');
+      await initIcons();
+
+      // 初始化圖表
+      initCharts();
+
+      // 初始化計數器
+      initCounters();
+    });
+
+    // 計數器動畫
+    function animateCounter(element, target, duration = 2000) {
+      const start = 0;
+      const startTime = performance.now();
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(start + (target - start) * easeProgress);
+
+        element.textContent = current.toLocaleString();
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    function initCounters() {
+      const counters = document.querySelectorAll('[data-counter]');
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const target = parseInt(entry.target.dataset.counter, 10);
+              animateCounter(entry.target, target);
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      counters.forEach((counter) => observer.observe(counter));
+    }
+
+    // 初始化圖表（避免重複綁定同一個 canvas）
+    let revenueChartInstance = null;
+    let salesChartInstance = null;
+    let marketShareChartInstance = null;
+
+    function destroyCharts() {
+      revenueChartInstance?.destroy();
+      salesChartInstance?.destroy();
+      marketShareChartInstance?.destroy();
+      revenueChartInstance = null;
+      salesChartInstance = null;
+      marketShareChartInstance = null;
+    }
+
+    function initCharts() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const textColor = isDark ? '#CBD5E1' : '#4B5563';
+      const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)';
+      const isEn = getCurrentLanguage() === 'en';
+      const mutedBar = getComputedStyle(document.documentElement).getPropertyValue('--bg-muted').trim() || '#E5E7EB';
+
+      // 營收趨勢圖
+      const revenueCtx = document.getElementById('revenueChart')?.getContext('2d');
+      if (revenueCtx) {
+        revenueChartInstance?.destroy();
+        revenueChartInstance = new Chart(revenueCtx, {
+          type: 'line',
+          data: {
+            labels: isEn ? ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'] : ['1月', '2月', '3月', '4月', '5月', '6月', '7月'],
+            datasets: [{
+              label: isEn ? 'Revenue' : '營收',
+              data: [30000, 35000, 32000, 45000, 42000, 55000, 58000],
+              borderColor: '#A855F7',
+              backgroundColor: 'rgba(168, 85, 247, 0.1)',
+              fill: true,
+              tension: 0.4,
+              pointRadius: 4,
+              pointBackgroundColor: '#A855F7',
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false }
+            },
+            scales: {
+              x: {
+                grid: { display: false },
+                ticks: { color: textColor }
+              },
+              y: {
+                grid: { color: gridColor },
+                ticks: { color: textColor }
+              }
+            }
+          }
+        });
+      }
+
+      // 銷售數據圖
+      const salesCtx = document.getElementById('salesChart')?.getContext('2d');
+      if (salesCtx) {
+        salesChartInstance?.destroy();
+        salesChartInstance = new Chart(salesCtx, {
+          type: 'bar',
+          data: {
+            labels: isEn ? ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] : ['週一', '週二', '週三', '週四', '週五', '週六', '週日'],
+            datasets: [
+              {
+                label: isEn ? 'This month' : '本月',
+                data: [120, 190, 150, 220, 180, 250, 200],
+                backgroundColor: '#A855F7',
+                borderRadius: 8,
+              },
+              {
+                label: isEn ? 'Last month' : '上月',
+                data: [100, 150, 130, 180, 160, 200, 170],
+                backgroundColor: mutedBar,
+                borderRadius: 8,
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false }
+            },
+            scales: {
+              x: {
+                grid: { display: false },
+                ticks: { color: textColor }
+              },
+              y: {
+                grid: { color: gridColor },
+                ticks: { color: textColor }
+              }
+            }
+          }
+        });
+      }
+
+      // 市場份額圖
+      const marketCtx = document.getElementById('marketShareChart')?.getContext('2d');
+      if (marketCtx) {
+        marketShareChartInstance?.destroy();
+        marketShareChartInstance = new Chart(marketCtx, {
+          type: 'doughnut',
+          data: {
+            labels: isEn ? ['Product A', 'Product B', 'Product C'] : ['產品 A', '產品 B', '產品 C'],
+            datasets: [{
+              data: [45, 30, 25],
+              backgroundColor: ['#A855F7', '#06B6D4', '#22C55E'],
+              borderWidth: 0,
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: {
+              legend: { display: false }
+            }
+          }
+        });
+      }
+    }
+
+    // 監聽主題變更，重新初始化圖表
+    window.addEventListener('themechange', () => {
+      destroyCharts();
+      initCharts();
+    });
+
+    // 監聽語言變更，重新初始化圖表以更新 labels
+    window.addEventListener('languagechange', () => {
+      destroyCharts();
+      initCharts();
+    });
+  </script>
+
+  <style>
+    /* 頁面特定樣式 */
+    .page-header {
+      padding-bottom: var(--space-6);
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    /* 響應式調整 */
+    @media (max-width: 1024px) {
+      .card-grid[style*="2fr 1fr"] {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .card-grid[style*="400px"] {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
+</body>
+</html>

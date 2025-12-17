@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NexusAI Profile - 個人檔案">
+  <meta name="theme-color" content="#FFFFFF">
+
+  <title>個人檔案 - NexusAI</title>
+
+  <!-- Head Loader（集中管理核心 CSS/Fonts/版本號） -->
+  <script src="../js/head-loader.js"></script>
+</head>
+<body>
+  <!-- Skip Link (無障礙) -->
+  <a href="#main-content" class="skip-link">跳至主要內容</a>
+
+  <!-- Sidebar Layout -->
+  <div class="sidebar-layout">
+    <!-- Sidebar Container -->
+    <nav id="sidebar-container" class="sidebar-layout__sidebar" aria-label="側邊導航"></nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="sidebar-layout__main">
+      <!-- Page Header -->
+      <div class="page-header mb-8">
+        <div class="flex items-center justify-between flex-wrap gap-4">
+          <div>
+            <h1 class="h3" data-lang="page.profile">個人檔案</h1>
+            <p class="text-secondary mt-2" data-lang="profile.subtitle">管理您的個人資訊與帳戶設定。</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <!-- Language Toggle -->
+            <button class="btn btn--secondary btn--sm" data-lang-toggle aria-label="切換語言">
+              <span data-lang-display>中</span>
+            </button>
+            <!-- Theme Toggle -->
+            <button class="btn btn--secondary btn--sm" data-theme-toggle aria-label="切換主題">
+              <i data-lucide="moon" data-theme-icon></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Header Card -->
+      <section class="mb-8">
+        <div class="glass-card">
+          <div class="profile-header">
+            <div class="profile-header__bg"></div>
+            <div class="profile-header__content">
+              <div class="profile-header__avatar-section">
+                <!-- Avatar -->
+                <div class="profile-avatar">
+                  <img src="https://i.pravatar.cc/150?img=12" alt="用戶頭像" data-lang-alt="profile.avatarAlt" class="profile-avatar__img">
+                  <button class="profile-avatar__edit" aria-label="編輯頭像" data-lang-aria="profile.editAvatar">
+                    <i data-lucide="camera"></i>
+                  </button>
+                </div>
+                <!-- User Info -->
+                <div class="profile-header__info">
+                  <h2 class="h4" data-lang="profile.user.name">王大明</h2>
+                  <p class="text-secondary" data-lang="profile.user.jobTitle">資深產品設計師</p>
+                  <div class="flex items-center gap-4 mt-3">
+                    <div class="flex items-center gap-2 text-sm text-secondary">
+                      <i data-lucide="mail" style="width: 16px; height: 16px;"></i>
+                      <span>wang.daming@nexusai.com</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-secondary">
+                      <i data-lucide="map-pin" style="width: 16px; height: 16px;"></i>
+                      <span data-lang="profile.user.location">台北, 台灣</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Edit Button -->
+              <button class="btn btn--primary" data-edit-profile>
+                <i data-lucide="edit-2"></i>
+                <span data-lang="profile.btn.edit">編輯資料</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Content Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- Left Column: Profile Form -->
+        <div class="lg:col-span-2">
+          <div class="glass-card">
+            <div class="card__header">
+              <h3 class="h5" data-lang="profile.section.personalInfo">個人資訊</h3>
+            </div>
+            <div class="card__body">
+              <form class="profile-form" id="profile-form">
+
+                <!-- Name Fields -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="form-group">
+                    <label class="form-label" for="firstName" data-lang="profile.form.firstName.label">名字</label>
+                    <input
+                      type="text"
+                      id="firstName"
+                      class="form-input"
+                      value="大明"
+                      data-lang-value="profile.value.firstName"
+                      placeholder="請輸入名字"
+                      data-lang-placeholder="profile.form.firstName.placeholder"
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="lastName" data-lang="profile.form.lastName.label">姓氏</label>
+                    <input
+                      type="text"
+                      id="lastName"
+                      class="form-input"
+                      value="王"
+                      data-lang-value="profile.value.lastName"
+                      placeholder="請輸入姓氏"
+                      data-lang-placeholder="profile.form.lastName.placeholder"
+                    >
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                  <label class="form-label" for="email" data-lang="profile.email">電子郵件</label>
+                  <input
+                    type="email"
+                    id="email"
+                    class="form-input"
+                    value="wang.daming@nexusai.com"
+                    placeholder="example@email.com"
+                  >
+                </div>
+
+                <!-- Phone -->
+                <div class="form-group">
+                  <label class="form-label" for="phone" data-lang="profile.form.phone.label">聯絡電話</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    class="form-input"
+                    value="+886 912 345 678"
+                    placeholder="+886 912 345 678"
+                  >
+                </div>
+
+                <!-- Job Title -->
+                <div class="form-group">
+                  <label class="form-label" for="jobTitle" data-lang="profile.form.jobTitle.label">職稱</label>
+                  <input
+                    type="text"
+                    id="jobTitle"
+                    class="form-input"
+                    value="資深產品設計師"
+                    data-lang-value="profile.value.jobTitle"
+                    placeholder="請輸入職稱"
+                    data-lang-placeholder="profile.form.jobTitle.placeholder"
+                  >
+                </div>
+
+                <!-- Company -->
+                <div class="form-group">
+                  <label class="form-label" for="company" data-lang="profile.form.company.label">公司</label>
+                  <input
+                    type="text"
+                    id="company"
+                    class="form-input"
+                    value="NexusAI Tech"
+                    placeholder="請輸入公司名稱"
+                    data-lang-placeholder="profile.form.company.placeholder"
+                  >
+                </div>
+
+                <!-- Location -->
+                <div class="form-group">
+                  <label class="form-label" for="location" data-lang="profile.form.location.label">地點</label>
+                  <input
+                    type="text"
+                    id="location"
+                    class="form-input"
+                    value="台北, 台灣"
+                    data-lang-value="profile.value.location"
+                    placeholder="城市, 國家"
+                    data-lang-placeholder="profile.form.location.placeholder"
+                  >
+                </div>
+
+                <!-- Bio -->
+                <div class="form-group">
+                  <label class="form-label" for="bio" data-lang="profile.form.bio.label">個人簡介</label>
+                  <textarea
+                    id="bio"
+                    class="form-input"
+                    rows="4"
+                    placeholder="簡短介紹您自己..."
+                    data-lang-placeholder="profile.form.bio.placeholder"
+                    data-lang="profile.value.bio"
+                  >熱愛設計與創新，致力於打造優質的使用者體驗。擁有 8 年以上的產品設計經驗，專注於 UI/UX 設計、設計系統建構與使用者研究。</textarea>
+                </div>
+
+                <!-- Social Links -->
+                <div class="form-group">
+                  <label class="form-label" data-lang="profile.form.social.label">社群連結</label>
+                  <div class="space-y-3">
+                    <div class="flex items-center gap-3">
+                      <i data-lucide="github" style="width: 20px; height: 20px; color: var(--text-secondary);"></i>
+                      <input
+                        type="url"
+                        class="form-input flex-1"
+                        placeholder="https://github.com/username"
+                        value="https://github.com/wangdaming"
+                      >
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <i data-lucide="linkedin" style="width: 20px; height: 20px; color: var(--text-secondary);"></i>
+                      <input
+                        type="url"
+                        class="form-input flex-1"
+                        placeholder="https://linkedin.com/in/username"
+                        value="https://linkedin.com/in/wangdaming"
+                      >
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <i data-lucide="twitter" style="width: 20px; height: 20px; color: var(--text-secondary);"></i>
+                      <input
+                        type="url"
+                        class="form-input flex-1"
+                        placeholder="https://twitter.com/username"
+                        value="https://twitter.com/wangdaming"
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center gap-3 pt-4">
+                  <button type="submit" class="btn btn--primary">
+                    <i data-lucide="save"></i>
+                    <span data-lang="profile.save">儲存變更</span>
+                  </button>
+                  <button type="button" class="btn btn--secondary" data-cancel-edit>
+                    <span data-lang="btn.cancel">取消</span>
+                  </button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Activity & Stats -->
+        <div class="space-y-6">
+
+          <!-- Stats Card -->
+          <div class="glass-card p-6">
+            <h3 class="h6 mb-4" data-lang="profile.stats.title">統計資料</h3>
+            <div class="space-y-4">
+              <div class="stat-item">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm text-secondary" data-lang="profile.stats.completedProjects">完成專案</span>
+                  <span class="text-lg font-semibold text-primary">24</span>
+                </div>
+                <div class="progress">
+                  <div class="progress__bar" style="width: 80%; background: var(--color-primary);"></div>
+                </div>
+              </div>
+
+              <div class="stat-item">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm text-secondary" data-lang="projects.status.active">進行中</span>
+                  <span class="text-lg font-semibold" style="color: var(--color-secondary);">5</span>
+                </div>
+                <div class="progress">
+                  <div class="progress__bar" style="width: 50%; background: var(--color-secondary);"></div>
+                </div>
+              </div>
+
+              <div class="stat-item">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm text-secondary" data-lang="profile.stats.teamMembers">團隊成員</span>
+                  <span class="text-lg font-semibold" style="color: var(--color-success);">12</span>
+                </div>
+                <div class="progress">
+                  <div class="progress__bar" style="width: 60%; background: var(--color-success);"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Activity -->
+          <div class="glass-card">
+            <div class="card__header">
+              <h3 class="h6" data-lang="profile.activity.title">最近活動</h3>
+            </div>
+            <div class="card__body p-0">
+              <div class="activity-list">
+
+                <div class="activity-item">
+                  <div class="activity-item__icon" style="background: rgba(168, 85, 247, 0.1); color: var(--color-primary);">
+                    <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
+                  </div>
+                  <div class="activity-item__content">
+                    <p class="activity-item__text" data-lang="profile.activity.createProject">建立新專案</p>
+                    <span class="activity-item__time" data-lang="profile.time.2hAgo">2 小時前</span>
+                  </div>
+                </div>
+
+                <div class="activity-item">
+                  <div class="activity-item__icon" style="background: rgba(6, 182, 212, 0.1); color: var(--color-secondary);">
+                    <i data-lucide="upload" style="width: 16px; height: 16px;"></i>
+                  </div>
+                  <div class="activity-item__content">
+                    <p class="activity-item__text" data-lang="profile.activity.uploadDesign">上傳設計檔案</p>
+                    <span class="activity-item__time" data-lang="profile.time.5hAgo">5 小時前</span>
+                  </div>
+                </div>
+
+                <div class="activity-item">
+                  <div class="activity-item__icon" style="background: rgba(34, 197, 94, 0.1); color: var(--color-success);">
+                    <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
+                  </div>
+                  <div class="activity-item__content">
+                    <p class="activity-item__text" data-lang="profile.activity.completeReview">完成任務審核</p>
+                    <span class="activity-item__time" data-lang="profile.time.1dAgo">1 天前</span>
+                  </div>
+                </div>
+
+                <div class="activity-item">
+                  <div class="activity-item__icon" style="background: rgba(245, 158, 11, 0.1); color: var(--color-warning);">
+                    <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
+                  </div>
+                  <div class="activity-item__content">
+                    <p class="activity-item__text" data-lang="profile.activity.replyTeam">回覆團隊留言</p>
+                    <span class="activity-item__time" data-lang="profile.time.2dAgo">2 天前</span>
+                  </div>
+                </div>
+
+                <div class="activity-item">
+                  <div class="activity-item__icon" style="background: rgba(239, 68, 68, 0.1); color: var(--color-error);">
+                    <i data-lucide="users" style="width: 16px; height: 16px;"></i>
+                  </div>
+                  <div class="activity-item__content">
+                    <p class="activity-item__text" data-lang="profile.activity.joinTeam">加入新團隊</p>
+                    <span class="activity-item__time" data-lang="profile.time.3dAgo">3 天前</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Lucide Icons -->
+
+  <!-- Main JavaScript -->
+  <script type="module">
+    import { initTheme } from '../js/theme.js';
+    import { initI18n, t } from '../js/i18n.js';
+    import { render as renderSidebar } from '../js/components/sidebar.js';
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', async () => {
+      // 初始化主題系統
+      initTheme();
+
+      // 初始化語言系統
+      initI18n();
+
+      // 載入側邊欄
+      const sidebarContainer = document.getElementById('sidebar-container');
+      if (sidebarContainer) {
+        renderSidebar(sidebarContainer);
+      }
+
+      // 初始化 Lucide Icons
+      const { initIcons } = await import('../js/lucide-icons.js');
+      await initIcons();
+
+      // 初始化個人檔案頁面
+      initProfilePage();
+    });
+
+    function initProfilePage() {
+      // 表單提交
+      const profileForm = document.getElementById('profile-form');
+      if (profileForm) {
+        profileForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+
+          // 收集表單資料
+          const formData = new FormData(profileForm);
+          const data = Object.fromEntries(formData);
+
+          console.log('Profile data:', data);
+          alert(t('profile.alert.saved'));
+        });
+      }
+
+      // 取消編輯
+      const cancelBtn = document.querySelector('[data-cancel-edit]');
+      if (cancelBtn) {
+        cancelBtn.addEventListener('click', () => {
+          if (confirm(t('profile.confirm.cancel'))) {
+            profileForm.reset();
+          }
+        });
+      }
+
+      // 編輯資料按鈕
+      const editBtn = document.querySelector('[data-edit-profile]');
+      if (editBtn) {
+        editBtn.addEventListener('click', () => {
+          document.querySelector('#firstName')?.focus();
+        });
+      }
+
+      // 頭像編輯
+      const avatarEditBtn = document.querySelector('.profile-avatar__edit');
+      if (avatarEditBtn) {
+        avatarEditBtn.addEventListener('click', () => {
+          alert(t('profile.alert.avatarWip'));
+        });
+      }
+    }
+  </script>
+
+  <style>
+    /* 頁面特定樣式 */
+    .page-header {
+      padding-bottom: var(--space-6);
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    /* Profile Header */
+    .profile-header {
+      position: relative;
+    }
+
+    .profile-header__bg {
+      height: 200px;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+
+    .profile-header__content {
+      padding: var(--space-6);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-top: -80px;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+
+    .profile-header__avatar-section {
+      display: flex;
+      align-items: flex-end;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    .profile-avatar {
+      position: relative;
+      width: 120px;
+      height: 120px;
+    }
+
+    .profile-avatar__img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 4px solid white;
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .profile-avatar__edit {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: white;
+      border: 3px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .profile-avatar__edit:hover {
+      transform: scale(1.1);
+      background: var(--color-secondary);
+    }
+
+    .profile-header__info h2 {
+      margin-bottom: var(--space-2);
+    }
+
+    /* Profile Form */
+    .profile-form {
+      max-width: 100%;
+    }
+
+    .form-group {
+      margin-bottom: var(--space-5);
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: var(--space-2);
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .form-input {
+      width: 100%;
+    }
+
+    /* Stats */
+    .stat-item {
+      padding-bottom: var(--space-4);
+    }
+
+    .stat-item:not(:last-child) {
+      border-bottom: 1px solid var(--border-default);
+      margin-bottom: var(--space-4);
+    }
+
+    /* Activity List */
+    .activity-list {
+      padding: var(--space-4);
+    }
+
+    .activity-item {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-3) 0;
+    }
+
+    .activity-item:not(:last-child) {
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .activity-item__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .activity-item__content {
+      flex: 1;
+    }
+
+    .activity-item__text {
+      font-size: var(--text-sm);
+      color: var(--text-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .activity-item__time {
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .grid-cols-1.lg\\:grid-cols-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .lg\\:col-span-2 {
+        grid-column: span 1;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .profile-header__bg {
+        height: 120px;
+      }
+
+      .profile-avatar {
+        width: 80px;
+        height: 80px;
+      }
+
+      .profile-header__content {
+        margin-top: -40px;
+        padding: var(--space-4);
+      }
+
+      .profile-header__avatar-section {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</body>
+</html>
