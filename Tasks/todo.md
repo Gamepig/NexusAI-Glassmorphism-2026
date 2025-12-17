@@ -824,30 +824,36 @@
 - （如需）確認 GitHub Pages 指向正確分支與目錄，能開啟 `pages/*`
 
 ## Todo（你確認後我才開始動手）
-- [ ] 1) 前置檢查（不修改任何 git 狀態）
-  - [ ] `git status`：確認哪些檔案要提交
-  - [ ] `git remote -v`：確認是否已設定 remote（沒有就新增）
-  - [ ] `git branch`：確認目前分支（預期 `main`）
-- [ ] 2) 初始化/設定 remote（若尚未存在）
-  - [ ] `git init`（若尚未是 git repo）
-  - [ ] `git remote add origin ...`（HTTPS 或 SSH 其一）
-- [ ] 3) 提交與推送
-  - [ ] `git add -A`
-  - [ ] `git commit -m "chore: initial commit"`
-  - [ ] `git push -u origin main`
-- [ ] 4) 上線檢查（手動/你確認）
+## Todo（已完成）
+- [x] 1) 前置檢查（不修改任何 git 狀態）
+  - [x] `git status`：確認哪些檔案要提交
+  - [x] `git remote -v`：確認是否已設定 remote（沒有就新增）
+  - [x] `git branch`：確認目前分支（預期 `main`）
+- [x] 2) 初始化/設定 remote（若尚未存在）
+  - [x] 已是 git repo（無需 `git init`）
+  - [x] remote 已存在：HTTPS `origin`
+- [x] 3) 提交與推送
+  - [x] `git add -A`
+  - [x] `git commit -m "chore: update demo (README + screenshots)"`
+  - [x] `git push -u origin main`
+- [ ] 4) 上線檢查（你確認）
   - [ ] GitHub repo 首頁：README 與截圖顯示正常
   - [ ] GitHub Pages：`/` 與 `/pages/dashboard.html` 等路徑可開
 
 ## 需要你先確認的兩個選項
-- [ ] **Remote 用哪個**：
-  - [ ] A) HTTPS：`https://github.com/Gamepig/NexusAI-Glassmorphism-2026.git`
-  - [ ] B) SSH：`git@github.com:Gamepig/NexusAI-Glassmorphism-2026.git`
-- [ ] **初始 commit message**：預設 `chore: initial commit`（你若要自訂我再改）
+## 已採用
+- [x] **Remote**：HTTPS `https://github.com/Gamepig/NexusAI-Glassmorphism-2026.git`
+- [x] **Commit message**：`chore: update demo (README + screenshots)`
 
 ## Review（完成後補）
 - **推送分支**：`main`
 - **新增/變更重點**：README + screenshots 已包含在初始提交
 - **Pages 狀態**：記錄目前 Pages 指向設定與可開啟路徑
+
+## Review（已完成）
+- **推送分支**：`main`
+- **推送結果**：`main` 已同步到 `origin/main`
+- **補充**：
+  - 我額外把 `.code-summary/` 加入 `.gitignore`，避免自動產生摘要檔被推上 GitHub
 
 
